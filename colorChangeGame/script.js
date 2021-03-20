@@ -23,38 +23,35 @@ const blueButton = document.querySelector("#blueButton");
 const cyanButton = document.querySelector("#cyanButton");
 const purpleButton = document.querySelector("#purpleButton");
 const greyButton = document.querySelector("#greyButton");
-// const firstBoardRowCol = document.querySelector(`#piece${j}${i}`) /// should go inside the function
+
 
 
 
 ///////////Variables
-const theColorsAvailable = ["red", "yellow", "green", "blue", "cyan", "purple"," grey"]
+const theColorsAvailable = ["red", "yellow", "green", "blue", "cyan", "purple","grey"]
 const firstBoardArray = [];
 const secondBoardArray = [];
 const thirdBoardArray = [];
 const players = ["player", "enemy"]
+const playerCurrentColor = theColorsAvailable[0];
+const enemyCurrentColor = theColorsAvailable[6];
 
-const turns = 0;
-
-
+let turns = 0;
 
 ///////////Functions
 const playersTurns = () => {
  
     const currentTurn = turns % 2;
-    turn += 1;
+    turns += 1;
     if( currentTurn === 0) {
         return players[0]
     } else {
         return players[1]
     }
 }
-
 const randNum = (limit) => {
     return Math.floor(Math.random() * limit)
 }
-
-
 const firstBoardMaker = () => {
     let pieceColor = "";
     
@@ -87,7 +84,7 @@ const firstBoardMaker = () => {
                 }
             }
             const currentColor = theColorsAvailable[randNum(theColorsAvailable.length)];
-            const newDiv = `<div id="piece${j}${i}" class="${currentColor} theHexagons player ${character}"></div>`;
+            const newDiv = `<div id="piece${j}${i}" class="${currentColor} theHexagons ${character}"></div>`;
             pieceColor += newDiv;
             colArray.push({
                 color: currentColor,
@@ -102,26 +99,59 @@ const firstBoardMaker = () => {
     }
     theFirstBoard.innerHTML = pieceColor;
 }
-console.log(firstBoardArray)
 firstBoardMaker();
+// console.log(firstBoardArray[0][1].color)
+// console.log(firstBoardArray[0])
+// console.log(firstBoardArray[1])
+// console.log(firstBoardArray)
+// console.log(firstBoardArray[11])
 
 const closeTheOpening = () => {
     openingModal.classList.add("closeModal")
     colorChooseModal.classList.remove("closeModal");
 }
 const closeColorChoose = () => {
-    colorChooseModal.classList.add("closeModal");
+    // colorChooseModal.classList.add("closeModal");
 }
-const gameFunction = (color) => {
+console.log(playersTurns())
+const gameFunction = (colorChosen) => {
     /////fix later
+    
+    
+    //check if color matches color of next hexagons
+    for(let i = 0; i < 10; i++){
+        for(let j = 0; j < 10; j++){
+            const firstBoardRowCol = document.querySelector(`#piece${j}${i}`) 
+            ////changes players color to the chosen color
+            if(firstBoardRowCol.classList.contains(`player`)){
+                for(let p = 0; p < theColorsAvailable.length; p++){
+                    //change the players current color to the same color
+                        //remove the current color
+                        firstBoardRowCol.classList.remove(theColorsAvailable[p]);
+                        
+                }
+                    // if(firstBoardRowColclassList.contains(`${theColorsAvailable[0]}`))
+                //add the new color
+                firstBoardRowCol.classList.add(colorChosen);
+                    
+            } else { console.log("nope")}
+            /////adds player class to the colors
+            if (colorChosen === firstBoardArray[i][j].color){
+                firstBoardRowCol.classList.add("player")
+                firstBoardArray[i][j].owner = players[0]
+            }
+                // console.log(firstBoardArray[i][j].color)
+        }
+            
+        
+        
+    }
 
-    //check if color matches color of next hexagons 
-    /*if (color === firstBoardArray[i][j].color){
-        firstBoardRowCol.classList.add("player")
-        firstBoardArray[i][j].owner = players[0]
-    }*/
     //to do that need to determine where your hexagons are
+    
     //change current color into the color chosen
+        //find the classes that has player and change color
+
     //add player marks on all color that touches the player hex with same color
     //check rows and colums of nearby stuff
     //maybe a while loop for all of these
