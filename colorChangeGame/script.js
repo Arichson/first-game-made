@@ -9,13 +9,56 @@
     // or set each squares value to 1? and then when they add up to 50 you win.
 //have a modal pop up everytime to choose the color you want
 //modal in the beginning too
-const theFirstBoard = document.querySelector("#boardOne")
 
+
+//////////DOM Stuff
+const theFirstBoard = document.querySelector("#boardOne");
+const startButton = document.querySelector("#start");
+const openingModal = document.querySelector("#opening");
+const colorChooseModal = document.querySelector("#colorChoose")
+const redButton = document.querySelector("#redButton");
+const yellowButton = document.querySelector("#yellowButton");
+const greenButton = document.querySelector("#greenButton");
+const blueButton = document.querySelector("#blueButton");
+const cyanButton = document.querySelector("#cyanButton");
+const purpleButton = document.querySelector("#purpleButton");
+const greyButton = document.querySelector("#greyButton");
+const firstBoardRowCol = document.querySelector(`#piece${j}${i}`)
+
+
+
+///////////Variables
 const theColorsAvailable = ["red", "yellow", "green", "blue", "cyan", "purple"," grey"]
+const firstBoardArray = [];
+const secondBoardArray = [];
+const thirdBoardArray = [];
+const players = ["player", "enemy"]
+
+const turns = 0;
+
+
+
+///////////Functions
+const playersTurns = () => {
+ 
+    const currentTurn = turns % 2;
+    return currentTurn;
+}
+
+const whosTurn = () => {
+    turn+=1;
+    if( playersTurns() === 0) {
+        ////// its the players turn
+    } else {
+        ///// enemys turn
+    }
+}
+
 
 const randNum = (limit) => {
     return Math.floor(Math.random() * limit)
 }
+
 
 const firstBoardMaker = () => {
     let pieceColor = "";
@@ -28,16 +71,112 @@ const firstBoardMaker = () => {
                 return "colOdd"
             }
         }
-        pieceColor += `<div id=board1Col${i} class="${colParity(i)} column">`
+        let character = "";
+        const colArray = [];
+        pieceColor += `<div id=board1Col${i} class="${colParity(i)} column">`;
         for(let j = 0; j<10; j++){
-        const newDiv = `<div id="piece${j}${i}" class="${theColorsAvailable[randNum(theColorsAvailable.length)]} theHexagons"></div>`;
-        pieceColor += newDiv;
+            if(i===0 && j === 9){
+                character = players[0];
+            } else if (i === 9 && j === 0){
+                character = players[1];
+            } else {
+                character = "";
+            }
+            const owner = () =>{
+                if(i===0 && j === 9){
+                    return players[0]
+                } else if (i === 9 && j === 0){
+                    return players[1];
+                } else {
+                    return "none";
+                }
+            }
+            const currentColor = theColorsAvailable[randNum(theColorsAvailable.length)];
+            const newDiv = `<div id="piece${j}${i}" class="${currentColor} theHexagons ${character}"></div>`;
+            pieceColor += newDiv;
+            colArray.push({
+                color: currentColor,
+                column: i,
+                row: j,
+                owner: owner(),
+            })
+            
         }
         pieceColor += `</div>`
+        firstBoardArray.push(colArray);
     }
     theFirstBoard.innerHTML = pieceColor;
 }
-
+console.log(firstBoardArray)
 firstBoardMaker();
 
+const closeTheOpening = () => {
+    openingModal.classList.add("closeModal")
+    colorChooseModal.classList.remove("closeModal");
+}
+const closeColorChoose = () => {
+    colorChooseModal.classList.add("closeModal");
+}
+const gameFunction = (color) => {
+    /////fix later
+    //check if color matches color of next hexagons 
+    /*if (color === firstBoardArray[i][j].color){
+        firstBoardROwCol.classList.add("player")
+        firstBoardArray[i][j].owner = players[0]
+    }*/
+    //to do that need to determine where your hexagons are
+    //add player class to all transformed hexagons
+    //check rows and colums of nearby stuff
+    //maybe a while loop for all of these
+}
 
+
+
+
+const chooseRed = () =>{
+    gameFunction(theColorsAvailable[0]);
+    closeColorChoose();
+}
+const chooseYellow = () =>{
+    gameFunction(theColorsAvailable[1]);
+        closeColorChoose();
+}
+const chooseGreen = () =>{
+    gameFunction(theColorsAvailable[2]);
+        closeColorChoose();
+}
+const chooseBlue = () =>{
+    gameFunction(theColorsAvailable[3]);
+        closeColorChoose();
+}
+const chooseCyan = () =>{
+    gameFunction(theColorsAvailable[4]);
+        closeColorChoose();
+}
+const choosePurple = () =>{
+    gameFunction(theColorsAvailable[5]);
+        closeColorChoose();
+}
+const chooseGrey = () =>{
+    gameFunction(theColorsAvailable[6]);
+        closeColorChoose();
+}
+
+
+
+
+
+
+
+
+
+
+////////////////Event Listeners
+startButton.addEventListener("click", closeTheOpening)
+redButton.addEventListener("click", chooseRed)
+yellowButton.addEventListener("click", chooseYellow)
+greenButton.addEventListener("click", chooseGreen)
+blueButton.addEventListener("click", chooseBlue)
+cyanButton.addEventListener("click", chooseCyan)
+purpleButton.addEventListener("click", choosePurple)
+greyButton.addEventListener("click", chooseGrey)

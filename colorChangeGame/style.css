@@ -8,6 +8,7 @@ body{
     background-color: saddlebrown;
 }
 /* Individual hexagon colors */
+/* Make colors normal, gradient colors with white if player takes over and black if enemmy takes over */
 .red {
     background-image: radial-gradient( rgb(158, 0, 0), black);
 }
@@ -46,23 +47,126 @@ body{
 }
 .grey {
     background-image: radial-gradient( rgb(156, 156, 156), black);
-    content: "RED";
 }
 .grey:hover {
     background-image: radial-gradient( rgb(255, 255, 255), black);
 }
+/* The Modals */
+#opening {
+    display: flex;
+    flex-flow: column;
+    justify-content: center;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 500px;;
+    height: 400px;
+    background-color: darkgreen;
+    z-index: 300;
+    text-align: center;
+    vertical-align: center;
+    border: 2px solid black;
+    border-radius: 10px;
+}
+.closeModal{
+    visibility: hidden;
+}
+#start {
+    background-color: darkslateblue;
+    padding: 5px 10px;
+    position: absolute;
+    bottom: 10%;
+    left: 50%;
+    transform: translateX(-50%);
+    border: 2px solid black;
+    border-radius: 10px;
+}
+#start:hover {
+    background-color: darkturquoise;
+    cursor: pointer;
+}
+/* Main color button */
+#colorChoose {
+    display: flex;
+    width: 70vh;
+    height: 10vh;
+    background-color: dimgray;
+    border: 2px solid black;
+    position: fixed;
+    top:50%;
+    left: 50%;
+    z-index: 400;
+    transform: translate(-50%, -50%);
+    justify-content: space-around;
+    align-items: center;
+    list-style-type: none;
+    padding: 0 10px;
+}
+.colorButtons {
+    background-color: rgb(187, 65, 65);
+    border: 2px solid black;
+    width: 40px;
+    height: 40px;
+}
+#redButton {
+    background-image: radial-gradient( rgb(158, 0, 0), black);
+}
+#redButton:hover {
+    background-image: radial-gradient( rgb(255, 4, 4), black);
+}
+#yellowButton {
+    background-image: radial-gradient( rgb(180, 180, 0), black);
+}
+#yellowButton:hover {
+    background-image: radial-gradient( rgb(255, 255, 0), black);
+}
+#greenButton {
+    background-image: radial-gradient( green, black);
+}
+#greenButton:hover {
+    background-image: radial-gradient( rgb(0, 255, 0), black);
+}
+#blueButton {
+    background-image: radial-gradient( rgb(0, 0, 158), black);
+}
+#blueButton:hover {
+    background-image: radial-gradient( rgb(0, 0, 255), black);
+}
+#cyanButton {
+    background-image: radial-gradient( rgb(0, 155, 155), black);
+}
+#cyanButton:hover {
+    background-image: radial-gradient( rgb(0, 255, 255), black);
+}
+#purpleButton {
+    background-image: radial-gradient( purple, black);
+}
+#purpleButton:hover {
+    background-image: radial-gradient( rgb(255, 0, 255), black);
+}
+#greyButton {
+    background-image: radial-gradient( rgb(156, 156, 156), black);
+}
+#greyButton:hover {
+    background-image: radial-gradient( rgb(255, 255, 255), black);
+}
+
+
 /* FIRST BOARD */
 #boardOne {
     display: flex;
     position: absolute;
     left: 50%;
     top: 50%;
-    transform: translate(-35%, -50%);
+    transform: translate(-36.6%, -50%);
     width: 700px;
     height: 600px;
-    /* background-color: rgb(0, 80, 80); */
-    /* clip-path: 20% 0%, 80% 0%, 100% 50%, 80% 100%, 20% 100%, 0% 50%, 20% 0%; */
-
+}
+.theHexagons{
+    width: 100%;
+    height: 10%;
+    clip-path: polygon(30% 0%, 70% 0%, 100% 50%, 70% 100%, 30% 100%, 0% 50%, 30% 0%);
 }
 .column {
     width:10%;
@@ -105,9 +209,4 @@ body{
 }
 #board1Col10 {
     left:70%;
-}
-.theHexagons{
-    width: 100%;
-    height: 10%;
-    clip-path: polygon(30% 0%, 70% 0%, 100% 50%, 70% 100%, 30% 100%, 0% 50%, 30% 0%);
 }
