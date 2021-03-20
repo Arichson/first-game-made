@@ -9,48 +9,43 @@ body{
 }
 /* Individual hexagon colors */
 /* Make colors normal, gradient colors with white if player takes over and black if enemmy takes over */
-.red {
-    background-image: radial-gradient( rgb(158, 0, 0), black);
-}
-.red:hover {
-    background-image: radial-gradient( rgb(255, 4, 4), black);
-}
-.yellow {
-    background-image: radial-gradient( rgb(180, 180, 0), black);
-}
-.yellow:hover {
-    background-image: radial-gradient( rgb(255, 255, 0), black);
-}
-.green {
-    background-image: radial-gradient( green, black);
-}
-.green:hover {
-    background-image: radial-gradient( rgb(0, 255, 0), black);
-}
-.blue {
-    background-image: radial-gradient( rgb(0, 0, 158), black);
-}
-.blue:hover {
-    background-image: radial-gradient( rgb(0, 0, 255), black);
-}
-.cyan {
-    background-image: radial-gradient( rgb(0, 155, 155), black);
-}
-.cyan:hover {
-    background-image: radial-gradient( rgb(0, 255, 255), black);
-}
-.purple {
-    background-image: radial-gradient( purple, black);
-}
-.purple:hover {
-    background-image: radial-gradient( rgb(255, 0, 255), black);
-}
-.grey {
-    background-image: radial-gradient( rgb(156, 156, 156), black);
-}
-.grey:hover {
-    background-image: radial-gradient( rgb(255, 255, 255), black);
-}
+.red {background-color: red;}
+.yellow {background-color: yellow;}
+.green {background-color: green;}
+.blue {background-color: blue;}
+.cyan {background-color: cyan;}
+.purple {background-color: purple;}
+.grey {background-color: grey;}
+/* Player Colors */
+.red.player {background-image: radial-gradient( rgb(107, 0, 0), white);}
+.red.player:hover {background-image: radial-gradient( rgb(255, 4, 4), white);}
+.yellow.player {background-image: radial-gradient( rgb(116, 116, 0), white);}
+.yellow.player:hover {background-image: radial-gradient( rgb(255, 255, 0), white);}
+.green.player {background-image: radial-gradient( rgb(0, 70, 0), white);}
+.green.player:hover {background-image: radial-gradient( rgb(0, 255, 0), white);}
+.blue.player {background-image: radial-gradient( rgb(0, 0, 78), white);}
+.blue.player:hover {background-image: radial-gradient( rgb(0, 0, 255), white);}
+.cyan.player {background-image: radial-gradient( rgb(0, 97, 97), white);}
+.cyan.player:hover {background-image: radial-gradient( rgb(0, 255, 255), white);}
+.purple.player {background-image: radial-gradient( rgb(87, 0, 87), white);}
+.purple.player:hover {background-image: radial-gradient( rgb(255, 0, 255), white);}
+.grey.player {background-image: radial-gradient( rgb(39, 39, 39), white);}
+.grey.player:hover {background-image: radial-gradient( rgb(153, 153, 153), white);}
+/* EnemyColors */
+.red.enemy:hover {background-image: radial-gradient( rgb(107, 0, 0), black);}
+.red.enemy {background-image: radial-gradient( rgb(255, 4, 4), black);}
+.yellow.enemy:hover {background-image: radial-gradient( rgb(116, 116, 0), black);}
+.yellow.enemy {background-image: radial-gradient( rgb(255, 255, 0), black);}
+.green.enemy:hover {background-image: radial-gradient( rgb(0, 70, 0), black);}
+.green.enemy {background-image: radial-gradient( rgb(0, 255, 0), black);}
+.blue.enemy:hover {background-image: radial-gradient( rgb(0, 0, 78), black);}
+.blue.enemy {background-image: radial-gradient( rgb(0, 0, 255), black);}
+.cyan.enemy:hover {background-image: radial-gradient( rgb(0, 97, 97), black);}
+.cyan.enemy {background-image: radial-gradient( rgb(0, 255, 255), black);}
+.purple.enemy:hover {background-image: radial-gradient( rgb(87, 0, 87), black);}
+.purple.enemy {background-image: radial-gradient( rgb(255, 0, 255), black);}
+.grey.enemy:hover {background-image: radial-gradient( rgb(39, 39, 39), black);}
+.grey.enemy {background-image: radial-gradient( rgb(255, 255, 255), black);}
 /* The Modals */
 #opening {
     display: flex;
@@ -151,7 +146,23 @@ body{
 #greyButton:hover {
     background-image: radial-gradient( rgb(255, 255, 255), black);
 }
-
+/* FOR ALL BOARDS */
+.theHexagons{
+    width: 100%;
+    height: 10%;
+    clip-path: polygon(30% 0%, 70% 0%, 100% 50%, 70% 100%, 30% 100%, 0% 50%, 30% 0%);
+    z-index: 10;
+    
+}
+/* Need to ask arthur about this */
+/* .theHexagons::before {        
+    content:"";
+    position: absolute;
+    width: 50%;
+    height: 5%;
+    clip-path: polygon(30% 0%, 70% 0%, 100% 50%, 70% 100%, 30% 100%, 0% 50%, 30% 0%);
+    background-color: black;
+} */
 
 /* FIRST BOARD */
 #boardOne {
@@ -162,11 +173,6 @@ body{
     transform: translate(-36.6%, -50%);
     width: 700px;
     height: 600px;
-}
-.theHexagons{
-    width: 100%;
-    height: 10%;
-    clip-path: polygon(30% 0%, 70% 0%, 100% 50%, 70% 100%, 30% 100%, 0% 50%, 30% 0%);
 }
 .column {
     width:10%;

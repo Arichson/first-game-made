@@ -23,7 +23,7 @@ const blueButton = document.querySelector("#blueButton");
 const cyanButton = document.querySelector("#cyanButton");
 const purpleButton = document.querySelector("#purpleButton");
 const greyButton = document.querySelector("#greyButton");
-const firstBoardRowCol = document.querySelector(`#piece${j}${i}`)
+// const firstBoardRowCol = document.querySelector(`#piece${j}${i}`) /// should go inside the function
 
 
 
@@ -42,18 +42,13 @@ const turns = 0;
 const playersTurns = () => {
  
     const currentTurn = turns % 2;
-    return currentTurn;
-}
-
-const whosTurn = () => {
-    turn+=1;
-    if( playersTurns() === 0) {
-        ////// its the players turn
+    turn += 1;
+    if( currentTurn === 0) {
+        return players[0]
     } else {
-        ///// enemys turn
+        return players[1]
     }
 }
-
 
 const randNum = (limit) => {
     return Math.floor(Math.random() * limit)
@@ -92,7 +87,7 @@ const firstBoardMaker = () => {
                 }
             }
             const currentColor = theColorsAvailable[randNum(theColorsAvailable.length)];
-            const newDiv = `<div id="piece${j}${i}" class="${currentColor} theHexagons ${character}"></div>`;
+            const newDiv = `<div id="piece${j}${i}" class="${currentColor} theHexagons player ${character}"></div>`;
             pieceColor += newDiv;
             colArray.push({
                 color: currentColor,
@@ -119,20 +114,32 @@ const closeColorChoose = () => {
 }
 const gameFunction = (color) => {
     /////fix later
+
     //check if color matches color of next hexagons 
     /*if (color === firstBoardArray[i][j].color){
-        firstBoardROwCol.classList.add("player")
+        firstBoardRowCol.classList.add("player")
         firstBoardArray[i][j].owner = players[0]
     }*/
     //to do that need to determine where your hexagons are
-    //add player class to all transformed hexagons
+    //change current color into the color chosen
+    //add player marks on all color that touches the player hex with same color
     //check rows and colums of nearby stuff
     //maybe a while loop for all of these
+
+
+
+    /////after this function elds, it turns to the enemy players turn
 }
 
 
 
-
+////////need to somehow limit the color able to choose by current ones played
+//maybe put up a modal in the exact position of the color thats not clickable? 
+// the modal will lock the color next turn
+//maybe make an array that stores 2 colors at a time and it will close those 2
+    //ex. color = [blue, red]
+    // push(new color) and remove hidden class from that modal color
+    //shift first index and give the modal a hidden class
 const chooseRed = () =>{
     gameFunction(theColorsAvailable[0]);
     closeColorChoose();
