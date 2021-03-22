@@ -5,7 +5,7 @@
     padding:0;
 }
 body{
-    background-color: saddlebrown;
+    background-color: rgb(107, 45, 0);
 }
 /* Individual hexagon colors */
 /* Make colors normal, gradient colors with white if player takes over and black if enemmy takes over */
@@ -99,53 +99,25 @@ body{
     padding: 0 10px;
 }
 .colorButtons {
-    background-color: rgb(187, 65, 65);
+    background-color: rgb(252, 252, 252);
     border: 2px solid black;
     width: 40px;
     height: 40px;
 }
-#redButton {
-    background-image: radial-gradient( rgb(158, 0, 0), black);
-}
-#redButton:hover {
-    background-image: radial-gradient( rgb(255, 4, 4), black);
-}
-#yellowButton {
-    background-image: radial-gradient( rgb(180, 180, 0), black);
-}
-#yellowButton:hover {
-    background-image: radial-gradient( rgb(255, 255, 0), black);
-}
-#greenButton {
-    background-image: radial-gradient( green, black);
-}
-#greenButton:hover {
-    background-image: radial-gradient( rgb(0, 255, 0), black);
-}
-#blueButton {
-    background-image: radial-gradient( rgb(0, 0, 158), black);
-}
-#blueButton:hover {
-    background-image: radial-gradient( rgb(0, 0, 255), black);
-}
-#cyanButton {
-    background-image: radial-gradient( rgb(0, 155, 155), black);
-}
-#cyanButton:hover {
-    background-image: radial-gradient( rgb(0, 255, 255), black);
-}
-#purpleButton {
-    background-image: radial-gradient( purple, black);
-}
-#purpleButton:hover {
-    background-image: radial-gradient( rgb(255, 0, 255), black);
-}
-#greyButton {
-    background-image: radial-gradient( rgb(156, 156, 156), black);
-}
-#greyButton:hover {
-    background-image: radial-gradient( rgb(255, 255, 255), black);
-}
+#redButton {background-image: radial-gradient( rgb(107, 0, 0), white);}
+#redButton:hover {background-image: radial-gradient( rgb(255, 4, 4), white);}
+#yellowButton {background-image: radial-gradient( rgb(116, 116, 0), white);}
+#yellowButton:hover {background-image: radial-gradient( rgb(255, 255, 0), white);}
+#greenButton {background-image: radial-gradient( rgb(0, 70, 0), white);}
+#greenButton:hover {background-image: radial-gradient( rgb(0, 255, 0), white);}
+#blueButton {background-image: radial-gradient( rgb(0, 0, 78), white);}
+#blueButton:hover {background-image: radial-gradient( rgb(0, 0, 255), white);}
+#cyanButton {background-image: radial-gradient( rgb(0, 97, 97), white);}
+#cyanButton:hover {background-image: radial-gradient( rgb(0, 255, 255), white);}
+#purpleButton {background-image: radial-gradient( rgb(87, 0, 87), white);}
+#purpleButton:hover {background-image: radial-gradient( rgb(255, 0, 255), white);}
+#greyButton {background-image: radial-gradient( rgb(39, 39, 39), white);}
+#greyButton:hover {background-image: radial-gradient( rgb(153, 153, 153), white);}
 /* FOR ALL BOARDS */
 .theHexagons{
     width: 100%;

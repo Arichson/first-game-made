@@ -114,6 +114,17 @@ const closeColorChoose = () => {
     // colorChooseModal.classList.add("closeModal");
 }
 console.log(playersTurns())
+
+const checkHexes = () => {
+    // for(let i = 0; i < 10; i++){
+    //     for(let j = 0; j < 10; j++){
+    //         if(firstBoardArray[]){
+
+    //         }
+    //     }
+    // }
+}
+
 const gameFunction = (colorChosen) => {
     /////fix later
     
@@ -127,24 +138,21 @@ const gameFunction = (colorChosen) => {
                 for(let p = 0; p < theColorsAvailable.length; p++){
                     //change the players current color to the same color
                         //remove the current color
-                        firstBoardRowCol.classList.remove(theColorsAvailable[p]);
-                        
+                        firstBoardRowCol.classList.remove(theColorsAvailable[p]);        
                 }
                     // if(firstBoardRowColclassList.contains(`${theColorsAvailable[0]}`))
                 //add the new color
-                firstBoardRowCol.classList.add(colorChosen);
-                    
+                firstBoardRowCol.classList.add(colorChosen);           
             } else { console.log("nope")}
             /////adds player class to the colors
             if (colorChosen === firstBoardArray[i][j].color){
+                //come up with a way that only changes to player class if the hexes are touching
+                checkHexes();
                 firstBoardRowCol.classList.add("player")
                 firstBoardArray[i][j].owner = players[0]
             }
                 // console.log(firstBoardArray[i][j].color)
         }
-            
-        
-        
     }
 
     //to do that need to determine where your hexagons are
@@ -161,6 +169,37 @@ const gameFunction = (colorChosen) => {
     /////after this function elds, it turns to the enemy players turn
 }
 
+/*
+const gameFunction = (colorChosen) => {
+// Check each column then row if its owned by player 
+    for(let i = 0; i < 10; i++){
+        for(let j = 0; j < 10; j++){
+            let col = i;
+            let row = j;
+            const currentRowCol = document.querySelector(`#piece${j}${i}`)
+            // const firstBoardRowCol = document.querySelector(`#piece${j}${i}`)
+
+            const rowAbove = document.querySelector(`#piece${j-1}${i}`)
+            const rowBelow = document.querySelector(`#piece${j+1}${i}`)
+            //check for class player
+            for( let z = 0; z < 5; z++){}
+            if(currentRowCol.classList.contains(`player`)){
+                // check the row above and below if it has the current color
+                if(rowAbove.classList.contains(currentColor)){
+                    rowAbove.classList.add("player");
+                    row-=1;
+                }
+                if(rowBelow.classList.contains(currentColor)){
+                    rowBelow.classList.add("player");
+                    row+=1;
+                }
+
+                ////////so far this just checks one column? 
+                ///////need to check the rows next to the columns too
+            }
+        }
+    }
+}*/
 
 
 ////////need to somehow limit the color able to choose by current ones played
@@ -217,3 +256,6 @@ blueButton.addEventListener("click", chooseBlue)
 cyanButton.addEventListener("click", chooseCyan)
 purpleButton.addEventListener("click", choosePurple)
 greyButton.addEventListener("click", chooseGrey)
+
+
+
