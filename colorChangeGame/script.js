@@ -42,7 +42,7 @@ let turns = 0;
 const playersTurns = () => {
  
     const currentTurn = turns % 2;
-    turns += 1;
+
     if( currentTurn === 0) {
         return players[0];
     } else {
@@ -67,7 +67,7 @@ const firstBoardMaker = () => {
         pieceColor += `<div id=board1Col${i} class="${colParity(i)} column">`;
         for(let j = 0; j<10; j++){
             const owner = () =>{
-                if(i===5 && j === 9){
+                if(i===0 && j === 9){
                     return players[0];
                 } else if (i === 9 && j === 0){
                     return players[1];
@@ -108,106 +108,52 @@ const closeColorChoose = () => {
 }
 // console.log(playersTurns())
 
-const checkHexes = () => {
-    // for(let i = 0; i < 10; i++){
-    //     for(let j = 0; j < 10; j++){
-    //         if(firstBoardArray[]){
-
-    //         }
-    //     }
-    // }
-}
-/*
-const gameFunction = (colorChosen) => {
-    /////fix later
-    
-    
-    //check if color matches color of next hexagons
-    for(let i = 0; i < 10; i++){
-        for(let j = 0; j < 10; j++){
-            const firstBoardRowCol = document.querySelector(`#piece${j}${i}`) 
-            ////changes players color to the chosen color
-            if(firstBoardRowCol.classList.contains(`player`)){
-                for(let p = 0; p < theColorsAvailable.length; p++){
-                    //change the players current color to the same color
-                        //remove the current color
-                        firstBoardRowCol.classList.remove(theColorsAvailable[p]);        
-                }
-                    // if(firstBoardRowColclassList.contains(`${theColorsAvailable[0]}`))
-                //add the new color
-                firstBoardRowCol.classList.add(colorChosen);           
-            } else { console.log("nope")}
-            /////adds player class to the colors
-            if (colorChosen === firstBoardArray[i][j].color){
-                //come up with a way that only changes to player class if the hexes are touching
-                checkHexes();
-                firstBoardRowCol.classList.add("player")
-                firstBoardArray[i][j].owner = players[0]
-            }
-                // console.log(firstBoardArray[i][j].color)
-        }
-    }
-
-    //to do that need to determine where your hexagons are
-    
-    //change current color into the color chosen
-        //find the classes that has player and change color
-
-    //add player marks on all color that touches the player hex with same color
-    //check rows and colums of nearby stuff
-    //maybe a while loop for all of these
-
-
-
-    /////after this function elds, it turns to the enemy players turn
-}
-*/
 const removeColor = (theTarget) => {
     theColorsAvailable.forEach( color => {
         theTarget.classList.remove(color);
     })
 }
-const changePlayerColor = (currentColor) => {
+const changePlayerColor = (currentColor, character) => {
     firstBoardArray.forEach( array =>{
         array.forEach(object => {
-            if( object.owner === "player"){
+            if( object.owner === character){
                 object.color = currentColor;
-                const rowColTarget = document.querySelectorAll(`.player`);
+                const rowColTarget = document.querySelectorAll(`.${character}`);
                 // console.log(rowColTarget.length);
                 for( let i = 0; i < rowColTarget.length; i++){
                     removeColor(rowColTarget[i]);
                     rowColTarget[i].classList.add(currentColor);
-                    // console.log(rowColTarget[i].classList.contains('player'));
+                    // console.log(rowColTarget[i].classList.contains(character));
                 }
             }
         })
     })
 }
-const checkAbove = (j, i, currentColor) => {
+const checkAbove = (j, i, currentColor, character) => {
     const rowAbove = j-1;
     const rowAboveChecked = document.querySelector(`#piece${rowAbove}${i}`);
     const currentRowCol = document.querySelector(`#piece${j}${i}`);
-    if(currentRowCol.classList.contains(`player`)){
+    if(currentRowCol.classList.contains(character)){
         if(rowAboveChecked.classList.contains(currentColor) && (rowAbove >= 0 && rowAbove<=9)/*&& rowAboveChecked.classList.contains('none')*/){
             rowAboveChecked.classList.remove('none');
-            rowAboveChecked.classList.add("player");
+            rowAboveChecked.classList.add(character);
         }
         console.log("above")
     }
 }
-const checkBelow = (j, i, currentColor) => {
+const checkBelow = (j, i, currentColor, character) => {
     const rowBelow = j+1;
     const rowBelowChecked = document.querySelector(`#piece${rowBelow}${i}`);
     const currentRowCol = document.querySelector(`#piece${j}${i}`);
-    if(currentRowCol.classList.contains(`player`)){
+    if(currentRowCol.classList.contains(character)){
         if(rowBelowChecked.classList.contains(currentColor) && (rowBelow <= 9 && rowBelow >= 0)/*&& rowBelowChecked.classList.contains('none')*/){
             rowBelowChecked.classList.remove('none');
-            rowBelowChecked.classList.add("player");
+            rowBelowChecked.classList.add(character);
         }
         console.log("below")
     }
 }
-const checkLeft = (j, i, currentColor) => {
+const checkLeft = (j, i, currentColor, character) => {
     const sameRow = j;
     const rowBelow = j+1;
     const rowAbove = j - 1;
@@ -215,42 +161,42 @@ const checkLeft = (j, i, currentColor) => {
     if( i % 2 === 0){
         const rowBotLeft = document.querySelector(`#piece${rowBelow}${i-1}`);
         const rowTopLeft = document.querySelector(`#piece${sameRow}${i-1}`);
-        if(currentRowCol.classList.contains(`player`)){
+        if(currentRowCol.classList.contains(character)){
             console.log("leftE")
             if(rowBelow <= 9 && rowBelow >= 0){
                 if(rowBotLeft.classList.contains(currentColor) && rowBotLeft.classList.contains('none')){
                     rowBotLeft.classList.remove('none');
-                    rowBotLeft.classList.add("player");
+                    rowBotLeft.classList.add(character);
                 }
             }  
             if(sameRow <= 9 && sameRow >= 0){ 
                 if(rowTopLeft.classList.contains(currentColor) && rowTopLeft.classList.contains('none')){
                     rowTopLeft.classList.remove('none');
-                    rowTopLeft.classList.add("player");
+                    rowTopLeft.classList.add(character);
                 }
             }
         }
     } else {
         const rowBotLeft = document.querySelector(`#piece${sameRow}${i-1}`);
         const rowTopLeft = document.querySelector(`#piece${rowAbove}${i-1}`);
-        if(currentRowCol.classList.contains(`player`)){
+        if(currentRowCol.classList.contains(character)){
             console.log("leftO")
             if(sameRow <= 9 && sameRow >= 0){
                 if(rowBotLeft.classList.contains(currentColor) && rowBotLeft.classList.contains('none')){
                     rowBotLeft.classList.remove('none');
-                    rowBotLeft.classList.add("player");
+                    rowBotLeft.classList.add(character);
                 }
             }
             if(rowAbove <= 9 && rowAbove >= 0){
                 if(rowTopLeft.classList.contains(currentColor) && rowTopLeft.classList.contains('none')){
                     rowTopLeft.classList.remove('none');
-                    rowTopLeft.classList.add("player");
+                    rowTopLeft.classList.add(character);
                 }
             }
         }
     }
 }
-const checkRight = (j, i, currentColor) => {
+const checkRight = (j, i, currentColor, character) => {
     const sameRow = j;
     const rowBelow = j+1;
     const rowAbove = j - 1;
@@ -258,36 +204,36 @@ const checkRight = (j, i, currentColor) => {
     if( i % 2 === 0){
         const rowBotRight = document.querySelector(`#piece${rowBelow}${i+1}`);
         const rowTopRight = document.querySelector(`#piece${sameRow}${i+1}`);
-        if(currentRowCol.classList.contains(`player`)){
+        if(currentRowCol.classList.contains(character)){
             console.log("rightE")
             if(rowBelow <= 9 && rowBelow >= 0){
                 if(rowBotRight.classList.contains(currentColor) && rowBotRight.classList.contains('none')){
                     rowBotRight.classList.remove('none');
-                    rowBotRight.classList.add("player");
+                    rowBotRight.classList.add(character);
                 }
             }
             if(sameRow <= 9 && sameRow >= 0){
                 if(rowTopRight.classList.contains(currentColor) && rowTopRight.classList.contains('none')){
                     rowTopRight.classList.remove('none');
-                    rowTopRight.classList.add("player");
+                    rowTopRight.classList.add(character);
                 }
             }
         }
     } else {
         const rowBotRight = document.querySelector(`#piece${sameRow}${i+1}`);
         const rowTopRight = document.querySelector(`#piece${rowAbove}${i+1}`);
-        if(currentRowCol.classList.contains(`player`)){
+        if(currentRowCol.classList.contains(character)){
             console.log("rightO")
             if(sameRow <= 9 && sameRow >= 0){
                 if(rowBotRight.classList.contains(currentColor) && rowBotRight.classList.contains('none')){
                     rowBotRight.classList.remove('none');
-                    rowBotRight.classList.add("player");
+                    rowBotRight.classList.add(character);
                 }
             }
             if(rowAbove <= 9 && rowAbove >= 0){
                 if(rowTopRight.classList.contains(currentColor) && rowTopRight.classList.contains('none')){
                     rowTopRight.classList.remove('none');
-                    rowTopRight.classList.add("player");
+                    rowTopRight.classList.add(character);
                 }
             }
         }
@@ -298,18 +244,19 @@ const gameFunction = (currentColor) => {
     for(let i = 0; i < 10; i++){
         for(let j = 0; j < 10; j++){
             if(j>0){
-                checkAbove(j, i, currentColor);}
+                checkAbove(j, i, currentColor, playersTurns());}
             if(j < 9) {
-                checkBelow(j, i, currentColor);}
+                checkBelow(j, i, currentColor, playersTurns());}
             if(i > 0 && j>=0 && j <= 9){
-                checkLeft(j, i, currentColor)}
+                checkLeft(j, i, currentColor, playersTurns())}
             if(i < 9 && j>=0 && j <= 9){
-                checkRight(j, i, currentColor)}
+                checkRight(j, i, currentColor, playersTurns())}
                 ////////so far this just checks one column? 
                 ///////need to check the rows next to the columns too
-            changePlayerColor(currentColor);
+            changePlayerColor(currentColor, playersTurns());
         }          
     }
+    turns += 1;
 }
 
 
@@ -348,16 +295,6 @@ const chooseGrey = () =>{
     gameFunction(theColorsAvailable[6]);
     closeColorChoose();
 }
-
-
-
-
-
-
-
-
-
-
 ////////////////Event Listeners
 startButton.addEventListener("click", closeTheOpening)
 redButton.addEventListener("click", chooseRed)
