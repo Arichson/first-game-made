@@ -67,7 +67,7 @@ const firstBoardMaker = () => {
         pieceColor += `<div id=board1Col${i} class="${colParity(i)} column">`;
         for(let j = 0; j<10; j++){
             const owner = () =>{
-                if(i===8 && j === 4){
+                if(i===5 && j === 9){
                     return players[0];
                 } else if (i === 9 && j === 0){
                     return players[1];
@@ -192,6 +192,7 @@ const checkAbove = (j, i, currentColor) => {
             rowAboveChecked.classList.remove('none');
             rowAboveChecked.classList.add("player");
         }
+        console.log("above")
     }
 }
 const checkBelow = (j, i, currentColor) => {
@@ -203,6 +204,7 @@ const checkBelow = (j, i, currentColor) => {
             rowBelowChecked.classList.remove('none');
             rowBelowChecked.classList.add("player");
         }
+        console.log("below")
     }
 }
 const checkLeft = (j, i, currentColor) => {
@@ -214,26 +216,36 @@ const checkLeft = (j, i, currentColor) => {
         const rowBotLeft = document.querySelector(`#piece${rowBelow}${i-1}`);
         const rowTopLeft = document.querySelector(`#piece${sameRow}${i-1}`);
         if(currentRowCol.classList.contains(`player`)){
-            if(rowBotLeft.classList.contains(currentColor) && (rowBelow <= 9 && rowBelow >= 0)/*&& rowBotLeft.classList.contains('none')*/){
-                rowBotLeft.classList.remove('none');
-                rowBotLeft.classList.add("player");
-            }
-            if(rowTopLeft.classList.contains(currentColor) && (rowBelow <= 9 && rowBelow >= 0)/*&& rowTopLeft.classList.contains('none')*/){
-                rowTopLeft.classList.remove('none');
-                rowTopLeft.classList.add("player");
+            console.log("leftE")
+            if(rowBelow <= 9 && rowBelow >= 0){
+                if(rowBotLeft.classList.contains(currentColor) && (rowBelow <= 9 && rowBelow >= 0) && rowBotLeft.classList.contains('none')){
+                    rowBotLeft.classList.remove('none');
+                    rowBotLeft.classList.add("player");
+                }
+            }  
+            if(sameRow <= 9 && sameRow >= 0){ 
+                if(rowTopLeft.classList.contains(currentColor) && (sameRow <= 9 && sameRow >= 0) && rowTopLeft.classList.contains('none')){
+                    rowTopLeft.classList.remove('none');
+                    rowTopLeft.classList.add("player");
+                }
             }
         }
     } else {
         const rowBotLeft = document.querySelector(`#piece${sameRow}${i-1}`);
         const rowTopLeft = document.querySelector(`#piece${rowAbove}${i-1}`);
         if(currentRowCol.classList.contains(`player`)){
-            if(rowBotLeft.classList.contains(currentColor) && (rowBelow < 9 && rowBelow > 0)/*&& rowBotLeft.classList.contains('none')*/){
-                rowBotLeft.classList.remove('none');
-                rowBotLeft.classList.add("player");
+            console.log("leftO")
+            if(sameRow <= 9 && sameRow >= 0){
+                if(rowBotLeft.classList.contains(currentColor) && (sameRow<= 9 && sameRow>= 0) && rowBotLeft.classList.contains('none')){
+                    rowBotLeft.classList.remove('none');
+                    rowBotLeft.classList.add("player");
+                }
             }
-            if(rowTopLeft.classList.contains(currentColor) && (rowBelow < 9 && rowBelow > 0)/*&& rowTopLeft.classList.contains('none')*/){
-                rowTopLeft.classList.remove('none');
-                rowTopLeft.classList.add("player");
+            if(rowAbove <= 9 && rowAbove >= 0){
+                if(rowTopLeft.classList.contains(currentColor) && (rowAbove <= 9 && rowAbove >= 0) && rowTopLeft.classList.contains('none')){
+                    rowTopLeft.classList.remove('none');
+                    rowTopLeft.classList.add("player");
+                }
             }
         }
     }
@@ -247,26 +259,36 @@ const checkRight = (j, i, currentColor) => {
         const rowBotRight = document.querySelector(`#piece${rowBelow}${i+1}`);
         const rowTopRight = document.querySelector(`#piece${sameRow}${i+1}`);
         if(currentRowCol.classList.contains(`player`)){
-            if(rowBotRight.classList.contains(currentColor) && (rowBelow <= 9 && rowBelow >= 0)/*&& rowBotRight.classList.contains('none')*/){
-                rowBotRight.classList.remove('none');
-                rowBotRight.classList.add("player");
+            console.log("rightE")
+            if(rowBelow <= 9 && rowBelow >= 0){
+                if(rowBotRight.classList.contains(currentColor) && (rowBelow <= 9 && rowBelow >= 0) && rowBotRight.classList.contains('none')){
+                    rowBotRight.classList.remove('none');
+                    rowBotRight.classList.add("player");
+                }
             }
-            if(rowTopRight.classList.contains(currentColor) && (rowBelow <= 9 && rowBelow >= 0)/*&& rowTopRight.classList.contains('none')*/){
-                rowTopRight.classList.remove('none');
-                rowTopRight.classList.add("player");
+            if(sameRow <= 9 && sameRow >= 0){
+                if(rowTopRight.classList.contains(currentColor) && (sameRow <= 9 && sameRow >= 0) && rowTopRight.classList.contains('none')){
+                    rowTopRight.classList.remove('none');
+                    rowTopRight.classList.add("player");
+                }
             }
         }
     } else {
-        const rowBotRight = document.querySelector(`#piece${sameRow}${i-1}`);
-        const rowTopRight = document.querySelector(`#piece${rowAbove}${i-1}`);
+        const rowBotRight = document.querySelector(`#piece${sameRow}${i+1}`);
+        const rowTopRight = document.querySelector(`#piece${rowAbove}${i+1}`);
         if(currentRowCol.classList.contains(`player`)){
-            if(rowBotRight.classList.contains(currentColor) && (rowBelow < 9 && rowBelow > 0)/*&& rowBotRight.classList.contains('none')*/){
-                rowBotRight.classList.remove('none');
-                rowBotRight.classList.add("player");
+            console.log("rightO")
+            if(rowAbove <= 9 && rowAbove >= 0){
+                if(rowBotRight.classList.contains(currentColor) && (sameRow <= 9 && sameRow >= 0) && rowBotRight.classList.contains('none')){
+                    rowBotRight.classList.remove('none');
+                    rowBotRight.classList.add("player");
+                }
             }
-            if(rowTopRight.classList.contains(currentColor) && (rowBelow < 9 && rowBelow > 0)/*&& rowTopRight.classList.contains('none')*/){
-                rowTopRight.classList.remove('none');
-                rowTopRight.classList.add("player");
+            if(sameRow <= 9 && sameRow >= 0){
+                if(rowTopRight.classList.contains(currentColor) && (rowAbove <= 9 && rowAbove >= 0) && rowTopRight.classList.contains('none')){
+                    rowTopRight.classList.remove('none');
+                    rowTopRight.classList.add("player");
+                }
             }
         }
     }
@@ -279,9 +301,9 @@ const gameFunction = (currentColor) => {
                 checkAbove(j, i, currentColor);}
             if(j < 9) {
                 checkBelow(j, i, currentColor);}
-            if(i > 0 && j>0 && j < 9){
+            if(i > 0 && j>=0 && j <= 9){
                 checkLeft(j, i, currentColor)}
-            if(i < 9 && j>0 && j < 9){
+            if(i < 9 && j>=0 && j <= 9){
                 checkRight(j, i, currentColor)}
                 ////////so far this just checks one column? 
                 ///////need to check the rows next to the columns too
