@@ -218,13 +218,13 @@ const checkLeft = (j, i, currentColor) => {
         if(currentRowCol.classList.contains(`player`)){
             console.log("leftE")
             if(rowBelow <= 9 && rowBelow >= 0){
-                if(rowBotLeft.classList.contains(currentColor) && (rowBelow <= 9 && rowBelow >= 0) && rowBotLeft.classList.contains('none')){
+                if(rowBotLeft.classList.contains(currentColor) && rowBotLeft.classList.contains('none')){
                     rowBotLeft.classList.remove('none');
                     rowBotLeft.classList.add("player");
                 }
             }  
             if(sameRow <= 9 && sameRow >= 0){ 
-                if(rowTopLeft.classList.contains(currentColor) && (sameRow <= 9 && sameRow >= 0) && rowTopLeft.classList.contains('none')){
+                if(rowTopLeft.classList.contains(currentColor) && rowTopLeft.classList.contains('none')){
                     rowTopLeft.classList.remove('none');
                     rowTopLeft.classList.add("player");
                 }
@@ -236,13 +236,13 @@ const checkLeft = (j, i, currentColor) => {
         if(currentRowCol.classList.contains(`player`)){
             console.log("leftO")
             if(sameRow <= 9 && sameRow >= 0){
-                if(rowBotLeft.classList.contains(currentColor) && (sameRow<= 9 && sameRow>= 0) && rowBotLeft.classList.contains('none')){
+                if(rowBotLeft.classList.contains(currentColor) && rowBotLeft.classList.contains('none')){
                     rowBotLeft.classList.remove('none');
                     rowBotLeft.classList.add("player");
                 }
             }
             if(rowAbove <= 9 && rowAbove >= 0){
-                if(rowTopLeft.classList.contains(currentColor) && (rowAbove <= 9 && rowAbove >= 0) && rowTopLeft.classList.contains('none')){
+                if(rowTopLeft.classList.contains(currentColor) && rowTopLeft.classList.contains('none')){
                     rowTopLeft.classList.remove('none');
                     rowTopLeft.classList.add("player");
                 }
@@ -261,13 +261,13 @@ const checkRight = (j, i, currentColor) => {
         if(currentRowCol.classList.contains(`player`)){
             console.log("rightE")
             if(rowBelow <= 9 && rowBelow >= 0){
-                if(rowBotRight.classList.contains(currentColor) && (rowBelow <= 9 && rowBelow >= 0) && rowBotRight.classList.contains('none')){
+                if(rowBotRight.classList.contains(currentColor) && rowBotRight.classList.contains('none')){
                     rowBotRight.classList.remove('none');
                     rowBotRight.classList.add("player");
                 }
             }
             if(sameRow <= 9 && sameRow >= 0){
-                if(rowTopRight.classList.contains(currentColor) && (sameRow <= 9 && sameRow >= 0) && rowTopRight.classList.contains('none')){
+                if(rowTopRight.classList.contains(currentColor) && rowTopRight.classList.contains('none')){
                     rowTopRight.classList.remove('none');
                     rowTopRight.classList.add("player");
                 }
@@ -278,14 +278,14 @@ const checkRight = (j, i, currentColor) => {
         const rowTopRight = document.querySelector(`#piece${rowAbove}${i+1}`);
         if(currentRowCol.classList.contains(`player`)){
             console.log("rightO")
-            if(rowAbove <= 9 && rowAbove >= 0){
-                if(rowBotRight.classList.contains(currentColor) && (sameRow <= 9 && sameRow >= 0) && rowBotRight.classList.contains('none')){
+            if(sameRow <= 9 && sameRow >= 0){
+                if(rowBotRight.classList.contains(currentColor) && rowBotRight.classList.contains('none')){
                     rowBotRight.classList.remove('none');
                     rowBotRight.classList.add("player");
                 }
             }
-            if(sameRow <= 9 && sameRow >= 0){
-                if(rowTopRight.classList.contains(currentColor) && (rowAbove <= 9 && rowAbove >= 0) && rowTopRight.classList.contains('none')){
+            if(rowAbove <= 9 && rowAbove >= 0){
+                if(rowTopRight.classList.contains(currentColor) && rowTopRight.classList.contains('none')){
                     rowTopRight.classList.remove('none');
                     rowTopRight.classList.add("player");
                 }
