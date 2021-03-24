@@ -75,8 +75,8 @@ const firstBoardMaker = () => {
                     return "none";
                 }
             }
-            const currentColor =
-            theColorsAvailable[randNum(theColorsAvailable.length)];
+            const currentColor = "red"
+            // theColorsAvailable[randNum(theColorsAvailable.length);
             const newDiv = `<div id="piece${j}${i}" class="${currentColor} theHexagons ${owner()}"></div>`;
             pieceColor += newDiv;
             colArray.push({
@@ -134,7 +134,7 @@ const checkAbove = (j, i, currentColor, character) => {
     const rowAboveChecked = document.querySelector(`#piece${rowAbove}${i}`);
     const currentRowCol = document.querySelector(`#piece${j}${i}`);
     if(currentRowCol.classList.contains(character)){
-        if(rowAboveChecked.classList.contains(currentColor) && (rowAbove >= 0 && rowAbove<=9)/*&& rowAboveChecked.classList.contains('none')*/){
+        if(rowAboveChecked.classList.contains(currentColor) && (rowAbove >= 0 && rowAbove<=9) && rowAboveChecked.classList.contains('none')){
             rowAboveChecked.classList.remove('none');
             rowAboveChecked.classList.add(character);
         }
@@ -146,7 +146,7 @@ const checkBelow = (j, i, currentColor, character) => {
     const rowBelowChecked = document.querySelector(`#piece${rowBelow}${i}`);
     const currentRowCol = document.querySelector(`#piece${j}${i}`);
     if(currentRowCol.classList.contains(character)){
-        if(rowBelowChecked.classList.contains(currentColor) && (rowBelow <= 9 && rowBelow >= 0)/*&& rowBelowChecked.classList.contains('none')*/){
+        if(rowBelowChecked.classList.contains(currentColor) && (rowBelow <= 9 && rowBelow >= 0) && rowBelowChecked.classList.contains('none')){
             rowBelowChecked.classList.remove('none');
             rowBelowChecked.classList.add(character);
         }
@@ -239,8 +239,7 @@ const checkRight = (j, i, currentColor, character) => {
         }
     }
 }
-const gameFunction = (currentColor) => {
-// Check each column then row if its owned by player 
+const goForward = (currentColor) => {
     for(let i = 0; i < 10; i++){
         for(let j = 0; j < 10; j++){
             if(j>0){
@@ -256,6 +255,37 @@ const gameFunction = (currentColor) => {
             changePlayerColor(currentColor, playersTurns());
         }          
     }
+}
+
+const goBackwards = (currentColor) => {
+    for(let i = 9; i >= 0; i--){
+        for(let j = 9; j >= 0; j--){
+            if(j>0){
+                checkAbove(j, i, currentColor, playersTurns());}
+            if(j < 9) {
+                checkBelow(j, i, currentColor, playersTurns());}
+            if(i > 0 && j>=0 && j <= 9){
+                checkLeft(j, i, currentColor, playersTurns())}
+            if(i < 9 && j>=0 && j <= 9){
+                checkRight(j, i, currentColor, playersTurns())}
+                ////////so far this just checks one column? 
+                ///////need to check the rows next to the columns too
+            changePlayerColor(currentColor, playersTurns());
+        }          
+    }
+
+}
+
+
+const gameFunction = (currentColor) => {
+    goForward(currentColor);
+    goBackwards(currentColor);
+    goForward(currentColor);
+    goBackwards(currentColor);
+    goForward(currentColor);
+    goBackwards(currentColor);
+
+
     turns += 1;
 }
 
