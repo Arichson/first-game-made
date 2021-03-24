@@ -201,6 +201,8 @@ body{
 } */
 
 #whoseTurn {
+    margin: 0;
+    padding: 0;
     position: absolute;
     left: 50%;
     top: 30px;
@@ -212,6 +214,7 @@ body{
 }
 #tellTurn {
     color: red;
+    text-align: center;
 
 }
 /* FIRST BOARD */
@@ -238,7 +241,7 @@ body{
     position: absolute;
     left: 50%;
     top: 50%;
-    transform: translate(-36.6%, -50%);
+    transform: translate(-50%, -50%);
     width: 400px;
     height: 350px;
 }

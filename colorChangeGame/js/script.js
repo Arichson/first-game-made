@@ -34,7 +34,7 @@ const greyButtonFake = document.querySelectorAll(".greyButtonFake");
 const fake1 = document.querySelector(".fake1")
 const fake2 = document.querySelector(".fake2")
 const whoseTurn = document.querySelector("#whoseTurn")
-let wonFirstBoard = true;
+let wonFirstBoard = false;
 let wonSecondBoard = false;
 let wonThirdBoard = false;
 ///////////Variables
@@ -89,7 +89,6 @@ const firstBoardMaker = () => {
                 return "colOdd";
             }
         }
-        const colArray = [];
         pieceColor += `<div id=board1Col${i} class="${colParity(i)} column">`;
         for(let j = 0; j<10; j++){
             const owner = () =>{
@@ -104,13 +103,6 @@ const firstBoardMaker = () => {
             const currentColor = theColorsAvailable[randNum(theColorsAvailable.length)];
             const newDiv = `<div id="piece${j}${i}" class="${currentColor} theHexagons ${owner()}"></div>`;
             pieceColor += newDiv;
-            colArray.push({
-                color: currentColor,
-                column: i,
-                row: j,
-                owner: owner(),
-                point: 1,
-            })
             if(i===0 && j === 9 || i === 9 && j === 0){
                 unChoosableColorOne.push(currentColor);
                 const lostColor = document.querySelectorAll(`.${currentColor}ButtonFake`)
@@ -119,7 +111,6 @@ const firstBoardMaker = () => {
             } 
         }
         pieceColor += `</div>`
-        firstBoardArray.push(colArray);
     }
     theFirstBoard.innerHTML = pieceColor;
 }
@@ -133,7 +124,6 @@ const secondBoardMaker = () => {
                 return "colOdd";
             }
         }
-        const colArray = [];
         pieceColor += `<div id=board1Col${i} class="${colParity(i)} column">`;
         for(let j = 0; j<10; j++){
             const owner = () =>{
@@ -156,11 +146,6 @@ const secondBoardMaker = () => {
             const colorChosen = currentColor();
             const newDiv = `<div id="piece${j}${i}" class="${colorChosen} theHexagons ${owner()}"></div>`;
             pieceColor += newDiv;
-            colArray.push({
-                color: colorChosen,
-                column: i,
-                row: j,
-            })
             if(i===0 && j === 0 || i === 9 && j === 9){
                 console.log(i)
                 console.log(j)
@@ -185,7 +170,6 @@ const thirdBoardMaker = () => {
                 return "colOdd";
             }
         }
-        const colArray = [];
         pieceColor += `<div id=board1Col${i} class="${colParity(i)} column">`;
         for(let j = 0; j<10; j++){
             const owner = () =>{
@@ -208,11 +192,6 @@ const thirdBoardMaker = () => {
             const colorChosen = currentColor();
             const newDiv = `<div id="piece${j}${i}" class="${colorChosen} theThirdHexagons ${owner()}"></div>`;
             pieceColor += newDiv;
-            colArray.push({
-                color: colorChosen,
-                column: i,
-                row: j,
-            })
             if(i===14 && j === 4 || i === 0 && j === 4){
                 console.log(i)
                 console.log(j)
@@ -231,9 +210,7 @@ const closeTheOpening = () => {
     openingModal.classList.add("closeModal");
     colorChooseModal.classList.remove("closeModal");
     fake1.classList.remove("closeModal")
-    // firstBoardMaker();
-    // secondBoardMaker();
-    thirdBoardMaker();
+    firstBoardMaker();
 }
 const closeColorChoose = () => {
     // colorChooseModal.classList.add("closeModal");
@@ -244,7 +221,7 @@ const removeColor = (theTarget) => {
         theTarget.classList.remove(color);
     })
 }
-const changePlayerColor = (board, currentColor, character) => {
+const changePlayerColor = (currentColor, character) => {
     const rowColTarget = document.querySelectorAll(`.${character}`);
 
                 for( let i = 0; i < rowColTarget.length; i++){
@@ -493,7 +470,7 @@ const checkRightThird = (j, i, currentColor, character) => {
     }
 }
 
-const goForward = (board, currentColor) => {
+const goForward = (currentColor) => {
     for(let i = 0; i < 10; i++){
         for(let j = 0; j < 10; j++){
             if(j>0){
@@ -506,11 +483,11 @@ const goForward = (board, currentColor) => {
                 checkRight(j, i, currentColor, playersTurns())}
                 ////////so far this just checks one column? 
                 ///////need to check the rows next to the columns too
-            changePlayerColor(board, currentColor, playersTurns());
+            changePlayerColor(currentColor, playersTurns());
         }          
     }
 }
-const goBackwards = (board, currentColor) => {
+const goBackwards = (currentColor) => {
     for(let i = 9; i >= 0; i--){
         for(let j = 9; j >= 0; j--){
             if(j>0){
@@ -523,11 +500,11 @@ const goBackwards = (board, currentColor) => {
                 checkRight(j, i, currentColor, playersTurns())}
                 ////////so far this just checks one column? 
                 ///////need to check the rows next to the columns too
-            changePlayerColor(board, currentColor, playersTurns());
+            changePlayerColor(currentColor, playersTurns());
         }          
     }
 }
-const goForwardThird = (board, currentColor) => {
+const goForwardThird = (currentColor) => {
     for(let i = 0; i < 15; i++){
         for(let j = 0; j < 10; j++){
             if(j>0){
@@ -540,11 +517,11 @@ const goForwardThird = (board, currentColor) => {
                 checkRight(j, i, currentColor, playersTurns())}
                 ////////so far this just checks one column? 
                 ///////need to check the rows next to the columns too
-            changePlayerColor(board, currentColor, playersTurns());
+            changePlayerColor(currentColor, playersTurns());
         }          
     }
 }
-const goBackwardsThird = (board, currentColor) => {
+const goBackwardsThird = (currentColor) => {
     for(let i = 14; i >= 0; i--){
         for(let j = 9; j >= 0; j--){
             if(j>0){
@@ -557,7 +534,7 @@ const goBackwardsThird = (board, currentColor) => {
                 checkRight(j, i, currentColor, playersTurns())}
                 ////////so far this just checks one column? 
                 ///////need to check the rows next to the columns too
-            changePlayerColor(board, currentColor, playersTurns());
+            changePlayerColor(currentColor, playersTurns());
         }          
     }
 }
@@ -581,16 +558,22 @@ const checkWin = () =>{
         }
     }
     const totalPoints = playerPoints + enemyPoints + noPoints;
-    const turnString = `<h4>Player: ${(playerPoints/totalPoints) * 100}% </h4><h1 id="tellTurn">${playersTurns().toUpperCase()}'S TURN<h1><h4>Enemy: ${(enemyPoints/totalPoints) * 100}% </h4>`;
+    const turnString = `<h4>Player: ${Math.round((playerPoints/totalPoints) * 100)}% </h4><h1 id="tellTurn">${playersTurns().toUpperCase()}'S TURN<h1><h4>Enemy: ${Math.round((enemyPoints/totalPoints) * 100)}% </h4>`;
     whoseTurn.innerHTML = turnString
     if(playerPoints/totalPoints >= 1/2 && wonFirstBoard === false){
         console.log("Player wins")
         wonFirstBoard = true;
         theFirstBoard.innerHTML = "";
-        for (let i = 0; i < unChoosableColorOne; i++){
-            unChoosableColorOne.shift();
+        for (let i = 0; i < 2; i++){
+            const removedColor = unChoosableColorOne.shift();
+            console.log(removedColor)
+            const fakeButton = document.querySelectorAll(`.${removedColor}ButtonFake`);
+            fakeButton[0].classList.add("closeModal")
+            fakeButton[1].classList.add("closeModal")
         }
+        whoseTurn.innerHTML = `<h4>Player: 0% </h4><h1 id="tellTurn">${playersTurns().toUpperCase()}'S TURN<h1><h4>Enemy: 0% </h4>`;
         secondBoardMaker();
+        return
     }
     if(enemyPoints/totalPoints >= 1/2 && wonFirstBoard === false){
         console.log("enemy wins")
@@ -599,8 +582,11 @@ const checkWin = () =>{
         console.log("Player wins")
         wonSecondBoard = true;
         theSecondBoard.innerHTML = "";
-        for (let i = 0; i < unChoosableColorOne; i++){
-            unChoosableColorOne.shift();
+        for (let i = 0; i < 2; i++){
+            const removedColor = unChoosableColorOne.shift();
+            const fakeButton = document.querySelectorAll(`.${removedColor}ButtonFake`);
+            fakeButton[0].classList.add("closeModal")
+            fakeButton[1].classList.add("closeModal")
         }
         thirdBoardMaker();
     }
@@ -642,20 +628,47 @@ const checkWinThird = () =>{
 
 const gameFunction = (currentColor) => {
     if(wonFirstBoard === false){
-        goForward(firstBoardArray, currentColor);
-        goBackwards(firstBoardArray, currentColor);
+        if(playersTurns() === players[0]){
+            goForward(currentColor);
+            goBackwards(currentColor);
+            goForward(currentColor);
+            goBackwards(currentColor);
+        } else {
+            goBackwards(currentColor);
+            goForward(currentColor);
+            goBackwards(currentColor);
+            goForward(currentColor);
+        }
         checkWin();
         turns += 1;
         turnChange();
-    // } else if (wonSecondBoard === false) {
-    //     goForward(secondBoardArray, currentColor);
-    //     goBackwards(secondBoardArray, currentColor);
-    //     checkWin();
-    //     turns += 1;
-    //     turnChange();
+    } else if (wonSecondBoard === false) {
+        if(playersTurns() === players[0]){
+            goForward(currentColor);
+            goBackwards(currentColor);
+            goForward(currentColor);
+            goBackwards(currentColor);
+        } else {
+            goBackwards(currentColor);
+            goForward(currentColor);
+            goBackwards(currentColor);
+            goForward(currentColor);
+        }
+        checkWin();
+        turns += 1;
+        turnChange();
     } else if (wonThirdBoard === false) {
-        goForwardThird(thirdBoardArray, currentColor);
-        goBackwardsThird(thirdBoardArray, currentColor);
+        if(playersTurns() === players[0]){
+            goBackwardsThird(currentColor);
+            goForwardThird(currentColor);
+            goBackwardsThird(currentColor);
+            goForwardThird(currentColor);
+        } else {
+            goForwardThird(currentColor);
+            goBackwardsThird(currentColor);
+            goForwardThird(currentColor);
+            goBackwardsThird(currentColor);
+        }
         checkWinThird();
         turns += 1;
         turnChange();
