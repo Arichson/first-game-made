@@ -179,7 +179,15 @@ body{
     height: 44px;
     clip-path: polygon(30% 0%, 70% 0%, 100% 50%, 70% 100%, 30% 100%, 0% 50%, 30% 0%);
     z-index: 10;
-    
+}
+.theThirdHexagons{
+    width: 40px;
+    height: 35px;
+    clip-path: polygon(30% 0%, 70% 0%, 100% 50%, 70% 100%, 30% 100%, 0% 50%, 30% 0%);
+    z-index: 10;
+}
+.void {
+    background-color: black;
 }
 /* Need to ask arthur about this */
 /* .theHexagons::after {        
@@ -197,7 +205,14 @@ body{
     left: 50%;
     top: 30px;
     transform: translateX(-50%);
-    text-align: center;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    width: 100%;
+}
+#tellTurn {
+    color: red;
+
 }
 /* FIRST BOARD */
 #boardOne {
@@ -208,6 +223,24 @@ body{
     transform: translate(-36.6%, -50%);
     width: 500px;
     height: 440px;
+}
+#boardTwo {
+    display: flex;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-36.6%, -50%);
+    width: 500px;
+    height: 440px;
+}
+#boardThree {
+    display: flex;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-36.6%, -50%);
+    width: 400px;
+    height: 350px;
 }
 .column {
     width:10%;
@@ -250,4 +283,16 @@ body{
 }
 #board1Col10 {
     left:70%;
+}
+#board1Col11 {
+    left:77%;
+}
+#board1Col12 {
+    left:84%;
+}
+#board1Col13 {
+    left:91%;
+}
+#board1Col14 {
+    left:98%;
 }
