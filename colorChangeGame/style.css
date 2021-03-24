@@ -90,9 +90,26 @@ body{
     border: 2px solid black;
     position: fixed;
     top:50%;
-    left: 30%;
+    left: 50px;
     z-index: 400;
     transform: translate(-50%, -50%);
+    flex-flow: column;
+    justify-content: space-around;
+    align-items: center;
+    list-style-type: none;
+    padding: 0 10px;
+}
+#enemyColorChoose {
+    display: flex;
+    width: 10vh;
+    height: 70vh;
+    background-color: dimgray;
+    border: 2px solid black;
+    position: fixed;
+    top:50%;
+    right: 50px;
+    z-index: 400;
+    transform: translate(50%, -50%);
     flex-flow: column;
     justify-content: space-around;
     align-items: center;
@@ -105,20 +122,20 @@ body{
     width: 40px;
     height: 40px;
 }
-#redButton {background-image: radial-gradient( rgb(107, 0, 0), white);}
-#redButton:hover {background-image: radial-gradient( rgb(255, 4, 4), white);}
-#yellowButton {background-image: radial-gradient( rgb(116, 116, 0), white);}
-#yellowButton:hover {background-image: radial-gradient( rgb(255, 255, 0), white);}
-#greenButton {background-image: radial-gradient( rgb(0, 70, 0), white);}
-#greenButton:hover {background-image: radial-gradient( rgb(0, 255, 0), white);}
-#blueButton {background-image: radial-gradient( rgb(0, 0, 78), white);}
-#blueButton:hover {background-image: radial-gradient( rgb(0, 0, 255), white);}
-#cyanButton {background-image: radial-gradient( rgb(0, 97, 97), white);}
-#cyanButton:hover {background-image: radial-gradient( rgb(0, 255, 255), white);}
-#purpleButton {background-image: radial-gradient( rgb(87, 0, 87), white);}
-#purpleButton:hover {background-image: radial-gradient( rgb(255, 0, 255), white);}
-#greyButton {background-image: radial-gradient( rgb(39, 39, 39), white);}
-#greyButton:hover {background-image: radial-gradient( rgb(153, 153, 153), white);}
+.redButton {background-image: radial-gradient( rgb(107, 0, 0), white);}
+.redButton:hover {background-image: radial-gradient( rgb(255, 4, 4), white);}
+.yellowButton {background-image: radial-gradient( rgb(116, 116, 0), white);}
+.yellowButton:hover {background-image: radial-gradient( rgb(255, 255, 0), white);}
+.greenButton {background-image: radial-gradient( rgb(0, 70, 0), white);}
+.greenButton:hover {background-image: radial-gradient( rgb(0, 255, 0), white);}
+.blueButton {background-image: radial-gradient( rgb(0, 0, 78), white);}
+.blueButton:hover {background-image: radial-gradient( rgb(0, 0, 255), white);}
+.cyanButton {background-image: radial-gradient( rgb(0, 97, 97), white);}
+.cyanButton:hover {background-image: radial-gradient( rgb(0, 255, 255), white);}
+.purpleButton {background-image: radial-gradient( rgb(87, 0, 87), white);}
+.purpleButton:hover {background-image: radial-gradient( rgb(255, 0, 255), white);}
+.greyButton {background-image: radial-gradient( rgb(39, 39, 39), white);}
+.greyButton:hover {background-image: radial-gradient( rgb(153, 153, 153), white);}
 /* FOR ALL BOARDS */
 .theHexagons{
     width: 70px;

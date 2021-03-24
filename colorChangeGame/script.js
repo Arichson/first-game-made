@@ -9,40 +9,32 @@
     // or set each squares value to 1? and then when they add up to 50 you win.
 //have a modal pop up everytime to choose the color you want
 //modal in the beginning too
-
-
 //////////DOM Stuff
 const theFirstBoard = document.querySelector("#boardOne");
 const startButton = document.querySelector("#start");
 const openingModal = document.querySelector("#opening");
 const colorChooseModal = document.querySelector("#colorChoose");
-const redButton = document.querySelector("#redButton");
-const yellowButton = document.querySelector("#yellowButton");
-const greenButton = document.querySelector("#greenButton");
-const blueButton = document.querySelector("#blueButton");
-const cyanButton = document.querySelector("#cyanButton");
-const purpleButton = document.querySelector("#purpleButton");
-const greyButton = document.querySelector("#greyButton");
-
-
-
-
+const enemyColorChooseModal = document.querySelector("#enemyColorChoose");
+const redButton = document.querySelector(".redButton");
+const yellowButton = document.querySelector(".yellowButton");
+const greenButton = document.querySelector(".greenButton");
+const blueButton = document.querySelector(".blueButton");
+const cyanButton = document.querySelector(".cyanButton");
+const purpleButton = document.querySelector(".purpleButton");
+const greyButton = document.querySelector(".greyButton");
 ///////////Variables
 const theColorsAvailable = ["red", "yellow", "green", "blue", "cyan", "purple","grey"];
+const unChoosableColor = [];
 const firstBoardArray = [];
 const secondBoardArray = [];
 const thirdBoardArray = [];
 const players = ["player", "enemy"];
 const playerCurrentColor = theColorsAvailable[0];
 const enemyCurrentColor = theColorsAvailable[6];
-
 let turns = 0;
-
 ///////////Functions
 const playersTurns = () => {
- 
     const currentTurn = turns % 2;
-
     if( currentTurn === 0) {
         return players[0];
     } else {
@@ -54,7 +46,6 @@ const randNum = (limit) => {
 }
 const firstBoardMaker = () => {
     let pieceColor = "";
-    
     for(let i = 0; i < 10; i++) {
         const colParity = () => {
             if (i % 2 === 0){
@@ -75,8 +66,7 @@ const firstBoardMaker = () => {
                     return "none";
                 }
             }
-            const currentColor = "red"
-            // theColorsAvailable[randNum(theColorsAvailable.length);
+            const currentColor = theColorsAvailable[randNum(theColorsAvailable.length)];
             const newDiv = `<div id="piece${j}${i}" class="${currentColor} theHexagons ${owner()}"></div>`;
             pieceColor += newDiv;
             colArray.push({
@@ -84,8 +74,11 @@ const firstBoardMaker = () => {
                 column: i,
                 row: j,
                 owner: owner(),
+                point: 1,
             })
-            
+            if(i===0 && j === 9 || i === 9 && j === 0){
+                unChoosableColor.push(currentColor);
+            } 
         }
         pieceColor += `</div>`
         firstBoardArray.push(colArray);
@@ -93,21 +86,21 @@ const firstBoardMaker = () => {
     theFirstBoard.innerHTML = pieceColor;
 }
 firstBoardMaker();
+console.log(unChoosableColor)
 // console.log(firstBoardArray[0][1].color)
 // console.log(firstBoardArray[0])
 // console.log(firstBoardArray[1])
 // console.log(firstBoardArray)
 // console.log(firstBoardArray[11])
-
 const closeTheOpening = () => {
     openingModal.classList.add("closeModal");
     colorChooseModal.classList.remove("closeModal");
+    enemyColorChooseModal.classList.remove("closeModal")
 }
 const closeColorChoose = () => {
     // colorChooseModal.classList.add("closeModal");
 }
 // console.log(playersTurns())
-
 const removeColor = (theTarget) => {
     theColorsAvailable.forEach( color => {
         theTarget.classList.remove(color);
@@ -256,7 +249,6 @@ const goForward = (currentColor) => {
         }          
     }
 }
-
 const goBackwards = (currentColor) => {
     for(let i = 9; i >= 0; i--){
         for(let j = 9; j >= 0; j--){
@@ -275,8 +267,6 @@ const goBackwards = (currentColor) => {
     }
 
 }
-
-
 const gameFunction = (currentColor) => {
     goForward(currentColor);
     goBackwards(currentColor);
@@ -284,12 +274,8 @@ const gameFunction = (currentColor) => {
     goBackwards(currentColor);
     goForward(currentColor);
     goBackwards(currentColor);
-
-
     turns += 1;
 }
-
-
 ////////need to somehow limit the color able to choose by current ones played
 //maybe put up a modal in the exact position of the color thats not clickable? 
 // the modal will lock the color next turn
@@ -334,6 +320,3 @@ blueButton.addEventListener("click", chooseBlue)
 cyanButton.addEventListener("click", chooseCyan)
 purpleButton.addEventListener("click", choosePurple)
 greyButton.addEventListener("click", chooseGrey)
-
-
-
