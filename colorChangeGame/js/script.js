@@ -141,7 +141,7 @@ const secondBoardMaker = () => {
                     return players[0];
                 } else if (i === 9 && j === 9){
                     return players[1];
-                } else if (i > 4 && i < 6 && j>4 && j < 6){
+                } else if (i > 2 && i < 7 && j>2 && j < 7){
                     return "void"
                 } else {
                     return "none";
@@ -177,7 +177,7 @@ const secondBoardMaker = () => {
 }
 const thirdBoardMaker = () => {
     let pieceColor = "";
-    for(let i = 0; i < 14; i++) {
+    for(let i = 0; i < 15; i++) {
         const colParity = () => {
             if (i % 2 === 0){
                 return "colEven";
@@ -189,18 +189,18 @@ const thirdBoardMaker = () => {
         pieceColor += `<div id=board1Col${i} class="${colParity(i)} column">`;
         for(let j = 0; j<10; j++){
             const owner = () =>{
-                if(i===13 && j === 5){
+                if(i===14 && j === 4){
                     return players[0];
-                } else if (i === 0 && j === 5){
+                } else if (i === 0 && j === 4){
                     return players[1];
-                } else if (i > 4 && i < 6 && j>4 && j < 6){
+                } else if (i > 2 && i < 4 && j>2 && j < 4){
                     return "void"
                 } else {
                     return "none";
                 }
             }
             const currentColor = () => {
-                if (i > 2 && i < 7 && j>2 && j < 7){
+                if ((i > 2 && i < 5 && j>2 && j < 7) || (i > 9 && i < 12 && j>2 && j < 7) || (i > 4 && i < 6 && j>2 && j < 4) || (i > 8 && i < 10 && j>2 && j < 4) || (i > 4 && i < 6 && j>6 && j < 8) || (i > 8 && i < 10 && j>6 && j < 8) || (i > 6 && i < 8 && j>1 && j < 3) || (i > 6 && i < 8 && j>7 && j < 9)){
                     return "void"
                 }
                 return theColorsAvailable[randNum(theColorsAvailable.length)];
@@ -213,7 +213,7 @@ const thirdBoardMaker = () => {
                 column: i,
                 row: j,
             })
-            if(i===9 && j === 5 || i === 0 && j === 5){
+            if(i===14 && j === 4 || i === 0 && j === 4){
                 console.log(i)
                 console.log(j)
                 console.log(colorChosen)
@@ -245,20 +245,13 @@ const removeColor = (theTarget) => {
     })
 }
 const changePlayerColor = (board, currentColor, character) => {
-    board.forEach( array =>{
-        array.forEach(object => {
-            if( object.owner === character){
-                object.color = currentColor;
-                const rowColTarget = document.querySelectorAll(`.${character}`);
-                // console.log(rowColTarget.length);
+    const rowColTarget = document.querySelectorAll(`.${character}`);
+
                 for( let i = 0; i < rowColTarget.length; i++){
                     removeColor(rowColTarget[i]);
                     rowColTarget[i].classList.add(currentColor);
                     // console.log(rowColTarget[i].classList.contains(character));
                 }
-            }
-        })
-    })
 }
 
 const checkAbove = (j, i, currentColor, character) => {
@@ -380,6 +373,126 @@ const checkRight = (j, i, currentColor, character) => {
         }
     }
 }
+const checkAboveThird = (j, i, currentColor, character) => {
+    const rowAbove = j-1;
+    const rowAboveChecked = document.querySelector(`#piece${rowAbove}${i}`);
+    const currentRowCol = document.querySelector(`#piece${j}${i}`);
+    if(currentRowCol.classList.contains(character)){
+        if(rowAboveChecked.classList.contains(currentColor) && (rowAbove >= 0 && rowAbove<=9) && rowAboveChecked.classList.contains('none')){
+            rowAboveChecked.classList.remove('none');
+            rowAboveChecked.classList.add(character);
+        }
+        
+    }
+}
+const checkBelowThird = (j, i, currentColor, character) => {
+    const rowBelow = j+1;
+    const rowBelowChecked = document.querySelector(`#piece${rowBelow}${i}`);
+    const currentRowCol = document.querySelector(`#piece${j}${i}`);
+    if(currentRowCol.classList.contains(character)){
+        if(rowBelowChecked.classList.contains(currentColor) && (rowBelow <= 9 && rowBelow >= 0) && rowBelowChecked.classList.contains('none')){
+            rowBelowChecked.classList.remove('none');
+            rowBelowChecked.classList.add(character);
+    
+        }
+        
+    }
+}
+const checkLeftThird = (j, i, currentColor, character) => {
+    const sameRow = j;
+    const rowBelow = j+1;
+    const rowAbove = j - 1;
+    const currentRowCol = document.querySelector(`#piece${j}${i}`);
+    if( i % 2 === 0){
+        const rowBotLeft = document.querySelector(`#piece${rowBelow}${i-1}`);
+        const rowTopLeft = document.querySelector(`#piece${sameRow}${i-1}`);
+        if(currentRowCol.classList.contains(character)){
+            
+            if(rowBelow <= 9 && rowBelow >= 0){
+                if(rowBotLeft.classList.contains(currentColor) && rowBotLeft.classList.contains('none')){
+                    rowBotLeft.classList.remove('none');
+                    rowBotLeft.classList.add(character);
+            
+                }
+            }  
+            if(sameRow <= 9 && sameRow >= 0){ 
+                if(rowTopLeft.classList.contains(currentColor) && rowTopLeft.classList.contains('none')){
+                    rowTopLeft.classList.remove('none');
+                    rowTopLeft.classList.add(character);
+            
+                }
+            }
+        }
+    } else {
+        const rowBotLeft = document.querySelector(`#piece${sameRow}${i-1}`);
+        const rowTopLeft = document.querySelector(`#piece${rowAbove}${i-1}`);
+        if(currentRowCol.classList.contains(character)){
+            
+            if(sameRow <= 9 && sameRow >= 0){
+                if(rowBotLeft.classList.contains(currentColor) && rowBotLeft.classList.contains('none')){
+                    rowBotLeft.classList.remove('none');
+                    rowBotLeft.classList.add(character);
+            
+                }
+            }
+            if(rowAbove <= 9 && rowAbove >= 0){
+                if(rowTopLeft.classList.contains(currentColor) && rowTopLeft.classList.contains('none')){
+                    rowTopLeft.classList.remove('none');
+                    rowTopLeft.classList.add(character);
+            
+                }
+            }
+        }
+    }
+}
+const checkRightThird = (j, i, currentColor, character) => {
+    const sameRow = j;
+    const rowBelow = j+1;
+    const rowAbove = j - 1;
+    const currentRowCol = document.querySelector(`#piece${j}${i}`);
+    if( i % 2 === 0){
+        const rowBotRight = document.querySelector(`#piece${rowBelow}${i+1}`);
+        const rowTopRight = document.querySelector(`#piece${sameRow}${i+1}`);
+        if(currentRowCol.classList.contains(character)){
+            
+            if(rowBelow <= 9 && rowBelow >= 0){
+                if(rowBotRight.classList.contains(currentColor) && rowBotRight.classList.contains('none')){
+                    rowBotRight.classList.remove('none');
+                    rowBotRight.classList.add(character);
+            
+                }
+            }
+            if(sameRow <= 9 && sameRow >= 0){
+                if(rowTopRight.classList.contains(currentColor) && rowTopRight.classList.contains('none')){
+                    rowTopRight.classList.remove('none');
+                    rowTopRight.classList.add(character);
+            
+                }
+            }
+        }
+    } else {
+        const rowBotRight = document.querySelector(`#piece${sameRow}${i+1}`);
+        const rowTopRight = document.querySelector(`#piece${rowAbove}${i+1}`);
+        if(currentRowCol.classList.contains(character)){
+            
+            if(sameRow <= 9 && sameRow >= 0){
+                if(rowBotRight.classList.contains(currentColor) && rowBotRight.classList.contains('none')){
+                    rowBotRight.classList.remove('none');
+                    rowBotRight.classList.add(character);
+            
+                }
+            }
+            if(rowAbove <= 9 && rowAbove >= 0){
+                if(rowTopRight.classList.contains(currentColor) && rowTopRight.classList.contains('none')){
+                    rowTopRight.classList.remove('none');
+                    rowTopRight.classList.add(character);
+            
+                }
+            }
+        }
+    }
+}
+
 const goForward = (board, currentColor) => {
     for(let i = 0; i < 10; i++){
         for(let j = 0; j < 10; j++){
@@ -413,7 +526,40 @@ const goBackwards = (board, currentColor) => {
             changePlayerColor(board, currentColor, playersTurns());
         }          
     }
-
+}
+const goForwardThird = (board, currentColor) => {
+    for(let i = 0; i < 15; i++){
+        for(let j = 0; j < 10; j++){
+            if(j>0){
+                checkAbove(j, i, currentColor, playersTurns());}
+            if(j < 9) {
+                checkBelow(j, i, currentColor, playersTurns());}
+            if(i > 0 && j>=0 && j <= 9){
+                checkLeft(j, i, currentColor, playersTurns())}
+            if(i < 14 && j>=0 && j <= 9){
+                checkRight(j, i, currentColor, playersTurns())}
+                ////////so far this just checks one column? 
+                ///////need to check the rows next to the columns too
+            changePlayerColor(board, currentColor, playersTurns());
+        }          
+    }
+}
+const goBackwardsThird = (board, currentColor) => {
+    for(let i = 14; i >= 0; i--){
+        for(let j = 9; j >= 0; j--){
+            if(j>0){
+                checkAbove(j, i, currentColor, playersTurns());}
+            if(j < 9) {
+                checkBelow(j, i, currentColor, playersTurns());}
+            if(i > 0 && j>=0 && j <= 9){
+                checkLeft(j, i, currentColor, playersTurns())}
+            if(i < 14 && j>=0 && j <= 9){
+                checkRight(j, i, currentColor, playersTurns())}
+                ////////so far this just checks one column? 
+                ///////need to check the rows next to the columns too
+            changePlayerColor(board, currentColor, playersTurns());
+        }          
+    }
 }
 const checkWin = () =>{
     let playerPoints = 0;
@@ -458,9 +604,32 @@ const checkWin = () =>{
         }
         thirdBoardMaker();
     }
-    if(enemyPoints/totalPoints >= 1/2 && wonThirdBoard === false && wonSecondBoard === true){
+    if(enemyPoints/totalPoints >= 1/2 && wonSecondBoard === false && wonFirstBoard === true){
         console.log("enemy wins")
     }
+}
+const checkWinThird = () =>{
+    let playerPoints = 0;
+    let enemyPoints = 0;
+    let noPoints = 0;
+
+    for(let i = 0; i < 15; i++){
+        for( let j = 0; j < 10; j++){
+            const thePiece = document.querySelector(`#piece${j}${i}`);
+            if(thePiece.classList.contains(players[0])){
+                playerPoints +=1;
+            }
+            if(thePiece.classList.contains(players[1])){
+                enemyPoints +=1;
+            }
+            if(thePiece.classList.contains('none')){
+                noPoints +=1;
+            }
+        }
+    }
+    const totalPoints = playerPoints + enemyPoints + noPoints;
+    const turnString = `<h4>Player: ${(playerPoints/totalPoints) * 100}% </h4><h1 id="tellTurn">${playersTurns().toUpperCase()}'S TURN<h1><h4>Enemy: ${(enemyPoints/totalPoints) * 100}% </h4>`;
+    whoseTurn.innerHTML = turnString
     if(playerPoints/totalPoints >= 1/2 && wonThirdBoard === false && wonSecondBoard === true){
         console.log("Player wins")
         wonThirdBoard = true;
@@ -470,6 +639,7 @@ const checkWin = () =>{
         console.log("enemy wins")
     }
 }
+
 const gameFunction = (currentColor) => {
     if(wonFirstBoard === false){
         goForward(firstBoardArray, currentColor);
@@ -477,16 +647,16 @@ const gameFunction = (currentColor) => {
         checkWin();
         turns += 1;
         turnChange();
-    } else if (wonSecondBoard === false) {
-        goForward(secondBoardArray, currentColor);
-        goBackwards(secondBoardArray, currentColor);
-        checkWin();
-        turns += 1;
-        turnChange();
+    // } else if (wonSecondBoard === false) {
+    //     goForward(secondBoardArray, currentColor);
+    //     goBackwards(secondBoardArray, currentColor);
+    //     checkWin();
+    //     turns += 1;
+    //     turnChange();
     } else if (wonThirdBoard === false) {
-        goForward(secondBoardArray, currentColor);
-        goBackwards(secondBoardArray, currentColor);
-        checkWin();
+        goForwardThird(thirdBoardArray, currentColor);
+        goBackwardsThird(thirdBoardArray, currentColor);
+        checkWinThird();
         turns += 1;
         turnChange();
     }
