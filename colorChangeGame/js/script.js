@@ -29,6 +29,7 @@ const blueButtonFake = document.querySelectorAll(".blueButtonFake");
 const cyanButtonFake = document.querySelectorAll(".cyanButtonFake");
 const purpleButtonFake = document.querySelectorAll(".purpleButtonFake");
 const greyButtonFake = document.querySelectorAll(".greyButtonFake");
+const whoseTurn = document.querySelector("#whoseTurn")
 ///////////Variables
 const theColorsAvailable = ["red", "yellow", "green", "blue", "cyan", "purple","grey"];
 const unChoosableColor = [];
@@ -43,6 +44,14 @@ let turns = 0;
 const playersTurns = () => {
     const currentTurn = turns % 2;
     if( currentTurn === 0) {
+        return players[0];
+    } else {
+        return players[1];
+    }
+}
+const playersTurnsText = () => {
+    const currentTurn = turns % 2;
+    if( currentTurn === 1) {
         return players[0];
     } else {
         return players[1];
@@ -284,7 +293,9 @@ const gameFunction = (currentColor) => {
     goBackwards(currentColor);
     goForward(currentColor);
     goBackwards(currentColor);
+    const turnString = `<h1 id="tellTurn">${playersTurnsText().toUpperCase()}'S TURN<h1>`;
     turns += 1;
+    whoseTurn.innerHTML = turnString
 }
 ////////need to somehow limit the color able to choose by current ones played
 //maybe put up a modal in the exact position of the color thats not clickable? 
