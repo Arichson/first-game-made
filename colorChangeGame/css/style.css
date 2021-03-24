@@ -1,3 +1,6 @@
+/*  git remote add upstream url
+git push upstream master */
+
 *{
     /* border: 2px solid black; */
     box-sizing: border-box;
@@ -91,8 +94,8 @@ body{
     position: fixed;
     top:50%;
     left: 50px;
-    z-index: 400;
     transform: translate(-50%, -50%);
+    z-index: 400;
     flex-flow: column;
     justify-content: space-around;
     align-items: center;
@@ -108,8 +111,8 @@ body{
     position: fixed;
     top:50%;
     right: 50px;
-    z-index: 400;
     transform: translate(50%, -50%);
+    z-index: 400;
     flex-flow: column;
     justify-content: space-around;
     align-items: center;
@@ -122,20 +125,54 @@ body{
     width: 40px;
     height: 40px;
 }
-.redButton {background-image: radial-gradient( rgb(107, 0, 0), white);}
-.redButton:hover {background-image: radial-gradient( rgb(255, 4, 4), white);}
-.yellowButton {background-image: radial-gradient( rgb(116, 116, 0), white);}
-.yellowButton:hover {background-image: radial-gradient( rgb(255, 255, 0), white);}
-.greenButton {background-image: radial-gradient( rgb(0, 70, 0), white);}
-.greenButton:hover {background-image: radial-gradient( rgb(0, 255, 0), white);}
-.blueButton {background-image: radial-gradient( rgb(0, 0, 78), white);}
-.blueButton:hover {background-image: radial-gradient( rgb(0, 0, 255), white);}
-.cyanButton {background-image: radial-gradient( rgb(0, 97, 97), white);}
-.cyanButton:hover {background-image: radial-gradient( rgb(0, 255, 255), white);}
-.purpleButton {background-image: radial-gradient( rgb(87, 0, 87), white);}
-.purpleButton:hover {background-image: radial-gradient( rgb(255, 0, 255), white);}
-.greyButton {background-image: radial-gradient( rgb(39, 39, 39), white);}
-.greyButton:hover {background-image: radial-gradient( rgb(153, 153, 153), white);}
+.fakeModal {
+    display: flex;
+    width: 0;
+    height: 70vh;
+    border: 2px solid rgba(255, 0, 0, 0);
+    position: fixed;
+    flex-flow: column;
+    justify-content: space-around;
+    align-items: center;
+    list-style-type: none;
+    padding: 0 10px;
+}
+
+.fake1 {
+    top:50%;
+    left: 0;
+    z-index: 700;
+    transform: translate(-50%, -50%);
+}
+.fake2{
+    top:50%;
+    right: 0;
+    z-index: 700;
+    transform: translate(50%, -50%);
+}
+.redButton, .redButtonFake {background-image: radial-gradient( rgb(107, 0, 0), white);}
+.redButton:hover, .redButtonFake:hover {background-image: radial-gradient( rgb(255, 4, 4), white);}
+.yellowButton, .yellowButtonFake {background-image: radial-gradient( rgb(116, 116, 0), white);}
+.yellowButton:hover, .yellowButtonFake:hover {background-image: radial-gradient( rgb(255, 255, 0), white);}
+.greenButton, .greenButtonFake {background-image: radial-gradient( rgb(0, 70, 0), white);}
+.greenButton:hover, .greenButtonFake:hover {background-image: radial-gradient( rgb(0, 255, 0), white);}
+.blueButton, .blueButtonFake {background-image: radial-gradient( rgb(0, 0, 78), white);}
+.blueButton:hover, .blueButtonFake:hover {background-image: radial-gradient( rgb(0, 0, 255), white);}
+.cyanButton, .cyanButtonFake {background-image: radial-gradient( rgb(0, 97, 97), white);}
+.cyanButton:hover, .cyanButtonFake:hover {background-image: radial-gradient( rgb(0, 255, 255), white);}
+.purpleButton, .purpleButtonFake {background-image: radial-gradient( rgb(87, 0, 87), white);}
+.purpleButton:hover, .purpleButtonFake:hover {background-image: radial-gradient( rgb(255, 0, 255), white);}
+.greyButton, .greyButtonFake {background-image: radial-gradient( rgb(39, 39, 39), white);}
+.greyButton:hover, .greyButtonFake:hover {background-image: radial-gradient( rgb(153, 153, 153), white);}
+
+.fakes1 {
+    transform: translateX(50px);
+    background-image: radial-gradient(pink, black);
+}
+.fakes2 {
+    transform: translateX(-50px);
+    background-image: radial-gradient(pink, black);
+}
 /* FOR ALL BOARDS */
 .theHexagons{
     width: 70px;
@@ -145,14 +182,15 @@ body{
     
 }
 /* Need to ask arthur about this */
-/* .theHexagons::before {        
+.theHexagons::after {        
     content:"";
     position: absolute;
     width: 50%;
     height: 5%;
     clip-path: polygon(30% 0%, 70% 0%, 100% 50%, 70% 100%, 30% 100%, 0% 50%, 30% 0%);
     background-color: black;
-} */
+    z-index: -20;
+}
 
 /* FIRST BOARD */
 #boardOne {

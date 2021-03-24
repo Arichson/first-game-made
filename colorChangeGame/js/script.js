@@ -15,13 +15,20 @@ const startButton = document.querySelector("#start");
 const openingModal = document.querySelector("#opening");
 const colorChooseModal = document.querySelector("#colorChoose");
 const enemyColorChooseModal = document.querySelector("#enemyColorChoose");
-const redButton = document.querySelector(".redButton");
-const yellowButton = document.querySelector(".yellowButton");
-const greenButton = document.querySelector(".greenButton");
-const blueButton = document.querySelector(".blueButton");
-const cyanButton = document.querySelector(".cyanButton");
-const purpleButton = document.querySelector(".purpleButton");
-const greyButton = document.querySelector(".greyButton");
+const redButton = document.querySelectorAll(".redButton");
+const yellowButton = document.querySelectorAll(".yellowButton");
+const greenButton = document.querySelectorAll(".greenButton");
+const blueButton = document.querySelectorAll(".blueButton");
+const cyanButton = document.querySelectorAll(".cyanButton");
+const purpleButton = document.querySelectorAll(".purpleButton");
+const greyButton = document.querySelectorAll(".greyButton");
+const redButtonFake = document.querySelectorAll(".redButtonFake");
+const yellowButtonFake = document.querySelectorAll(".yellowButtonFake");
+const greenButtonFake = document.querySelectorAll(".greenButtonFake");
+const blueButtonFake = document.querySelectorAll(".blueButtonFake");
+const cyanButtonFake = document.querySelectorAll(".cyanButtonFake");
+const purpleButtonFake = document.querySelectorAll(".purpleButtonFake");
+const greyButtonFake = document.querySelectorAll(".greyButtonFake");
 ///////////Variables
 const theColorsAvailable = ["red", "yellow", "green", "blue", "cyan", "purple","grey"];
 const unChoosableColor = [];
@@ -78,6 +85,9 @@ const firstBoardMaker = () => {
             })
             if(i===0 && j === 9 || i === 9 && j === 0){
                 unChoosableColor.push(currentColor);
+                const lostColor = document.querySelectorAll(`.${currentColor}ButtonFake`)
+                lostColor[0].classList.remove("closeModal")
+                lostColor[1].classList.remove("closeModal")
             } 
         }
         pieceColor += `</div>`
@@ -285,38 +295,94 @@ const gameFunction = (currentColor) => {
     //shift first index and give the modal a hidden class 
 const chooseRed = () =>{
     gameFunction(theColorsAvailable[0]);
+    unChoosableColor.push(theColorsAvailable[0]);
+    redButtonFake[0].classList.remove("closeModal")
+    redButtonFake[1].classList.remove("closeModal")
+    const removedColor = unChoosableColor.shift();
+    const hideFakeButton = document.querySelectorAll(`.${removedColor}ButtonFake`)
+    hideFakeButton[0].classList.add("closeModal")
+    hideFakeButton[1].classList.add("closeModal")
     closeColorChoose();
 }
 const chooseYellow = () =>{
     gameFunction(theColorsAvailable[1]);
+    unChoosableColor.push(theColorsAvailable[1]);
+    yellowButtonFake[0].classList.remove("closeModal")
+    yellowButtonFake[1].classList.remove("closeModal")
+    const removedColor = unChoosableColor.shift();
+    const hideFakeButton = document.querySelectorAll(`.${removedColor}ButtonFake`)
+    hideFakeButton[0].classList.add("closeModal")
+    hideFakeButton[1].classList.add("closeModal")
     closeColorChoose();
 }
 const chooseGreen = () =>{
     gameFunction(theColorsAvailable[2]);
+    unChoosableColor.push(theColorsAvailable[2]);
+    greenButtonFake[0].classList.remove("closeModal")
+    greenButtonFake[1].classList.remove("closeModal")
+    const removedColor = unChoosableColor.shift();
+    const hideFakeButton = document.querySelectorAll(`.${removedColor}ButtonFake`)
+    hideFakeButton[0].classList.add("closeModal")
+    hideFakeButton[1].classList.add("closeModal")
     closeColorChoose();
 }
 const chooseBlue = () =>{
     gameFunction(theColorsAvailable[3]);
+    unChoosableColor.push(theColorsAvailable[3]);
+    blueButtonFake[0].classList.remove("closeModal")
+    blueButtonFake[1].classList.remove("closeModal")
+    const removedColor = unChoosableColor.shift();
+    const hideFakeButton = document.querySelectorAll(`.${removedColor}ButtonFake`)
+    hideFakeButton[0].classList.add("closeModal")
+    hideFakeButton[1].classList.add("closeModal")
     closeColorChoose();
 }
 const chooseCyan = () =>{
     gameFunction(theColorsAvailable[4]);
+    unChoosableColor.push(theColorsAvailable[4]);
+    cyanButtonFake[0].classList.remove("closeModal")
+    cyanButtonFake[1].classList.remove("closeModal")
+    const removedColor = unChoosableColor.shift();
+    const hideFakeButton = document.querySelectorAll(`.${removedColor}ButtonFake`)
+    hideFakeButton[0].classList.add("closeModal")
+    hideFakeButton[1].classList.add("closeModal")
     closeColorChoose();
 }
 const choosePurple = () =>{
     gameFunction(theColorsAvailable[5]);
+    unChoosableColor.push(theColorsAvailable[5]);
+    purpleButtonFake[0].classList.remove("closeModal")
+    purpleButtonFake[1].classList.remove("closeModal")
+    const removedColor = unChoosableColor.shift();
+    const hideFakeButton = document.querySelectorAll(`.${removedColor}ButtonFake`)
+    hideFakeButton[0].classList.add("closeModal")
+    hideFakeButton[1].classList.add("closeModal")
     closeColorChoose();
 }
 const chooseGrey = () =>{
     gameFunction(theColorsAvailable[6]);
+    unChoosableColor.push(theColorsAvailable[6]);
+    greyButtonFake[0].classList.remove("closeModal")
+    greyButtonFake[1].classList.remove("closeModal")
+    const removedColor = unChoosableColor.shift();
+    const hideFakeButton = document.querySelectorAll(`.${removedColor}ButtonFake`)
+    hideFakeButton[0].classList.add("closeModal")
+    hideFakeButton[1].classList.add("closeModal")
     closeColorChoose();
 }
 ////////////////Event Listeners
 startButton.addEventListener("click", closeTheOpening)
-redButton.addEventListener("click", chooseRed)
-yellowButton.addEventListener("click", chooseYellow)
-greenButton.addEventListener("click", chooseGreen)
-blueButton.addEventListener("click", chooseBlue)
-cyanButton.addEventListener("click", chooseCyan)
-purpleButton.addEventListener("click", choosePurple)
-greyButton.addEventListener("click", chooseGrey)
+redButton[0].addEventListener("click", chooseRed)
+yellowButton[0].addEventListener("click", chooseYellow)
+greenButton[0].addEventListener("click", chooseGreen)
+blueButton[0].addEventListener("click", chooseBlue)
+cyanButton[0].addEventListener("click", chooseCyan)
+purpleButton[0].addEventListener("click", choosePurple)
+greyButton[0].addEventListener("click", chooseGrey)
+redButton[1].addEventListener("click", chooseRed)
+yellowButton[1].addEventListener("click", chooseYellow)
+greenButton[1].addEventListener("click", chooseGreen)
+blueButton[1].addEventListener("click", chooseBlue)
+cyanButton[1].addEventListener("click", chooseCyan)
+purpleButton[1].addEventListener("click", choosePurple)
+greyButton[1].addEventListener("click", chooseGrey)
