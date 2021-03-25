@@ -20,6 +20,13 @@ body{
 .purple {background-color: purple;}
 .grey {background-color: grey;}
 /* Player Colors */
+/* .enemy.theHexagons {
+    background-image:url("../);
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position-x: center;
+    background-position-y: center;
+} */
 .red.player {background-image: radial-gradient( rgb(107, 0, 0), white);}
 .red.player:hover {background-image: radial-gradient( rgb(255, 4, 4), white);}
 .yellow.player {background-image: radial-gradient( rgb(116, 116, 0), white);}
@@ -35,7 +42,7 @@ body{
 .grey.player {background-image: radial-gradient( rgb(39, 39, 39), white);}
 .grey.player:hover {background-image: radial-gradient( rgb(153, 153, 153), white);}
 /* EnemyColors */
-.red.enemy:hover {background-image: radial-gradient( rgb(107, 0, 0), black);}
+/* .red.enemy:hover {background-image: radial-gradient( rgb(107, 0, 0), black);}
 .red.enemy {background-image: radial-gradient( rgb(255, 4, 4), black);}
 .yellow.enemy:hover {background-image: radial-gradient( rgb(116, 116, 0), black);}
 .yellow.enemy {background-image: radial-gradient( rgb(255, 255, 0), black);}
@@ -48,7 +55,7 @@ body{
 .purple.enemy:hover {background-image: radial-gradient( rgb(87, 0, 87), black);}
 .purple.enemy {background-image: radial-gradient( rgb(255, 0, 255), black);}
 .grey.enemy:hover {background-image: radial-gradient( rgb(39, 39, 39), black);}
-.grey.enemy {background-image: radial-gradient( rgb(255, 255, 255), black);}
+.grey.enemy {background-image: radial-gradient( rgb(255, 255, 255), black);} */
 /* The Modals */
 #opening {
     display: flex;
@@ -130,11 +137,23 @@ body{
     padding: 5px;
     border-radius: 5px;
 }
-#restartButton {
+.restart {
     border: 2px solid black;
     background-color: hotpink;
     padding: 5px;
     border-radius: 5px;
+}
+#secondButton:hover {
+    cursor: pointer;
+    background-color: rgb(82, 243, 248);
+}
+#thirdButton:hover {
+    cursor: pointer;
+    background-color: rgb(243, 255, 132);
+}
+.restart:hover {
+    cursor: pointer;
+    background-color: rgb(155, 0, 77);
 }
 /* Main color button */
 #colorChoose {
@@ -189,7 +208,6 @@ body{
     list-style-type: none;
     padding: 0 10px;
 }
-
 .fake1 {
     top:50%;
     left: 0;
@@ -202,26 +220,44 @@ body{
     z-index: 700;
     transform: translate(50%, -50%);
 }
-.redButton, .redButtonFake {background-image: radial-gradient( rgb(107, 0, 0), white);}
-.redButton:hover, .redButtonFake:hover {background-image: radial-gradient( rgb(255, 4, 4), white);}
-.yellowButton, .yellowButtonFake {background-image: radial-gradient( rgb(116, 116, 0), white);}
-.yellowButton:hover, .yellowButtonFake:hover {background-image: radial-gradient( rgb(255, 255, 0), white);}
-.greenButton, .greenButtonFake {background-image: radial-gradient( rgb(0, 70, 0), white);}
-.greenButton:hover, .greenButtonFake:hover {background-image: radial-gradient( rgb(0, 255, 0), white);}
-.blueButton, .blueButtonFake {background-image: radial-gradient( rgb(0, 0, 78), white);}
-.blueButton:hover, .blueButtonFake:hover {background-image: radial-gradient( rgb(0, 0, 255), white);}
-.cyanButton, .cyanButtonFake {background-image: radial-gradient( rgb(0, 97, 97), white);}
-.cyanButton:hover, .cyanButtonFake:hover {background-image: radial-gradient( rgb(0, 255, 255), white);}
-.purpleButton, .purpleButtonFake {background-image: radial-gradient( rgb(87, 0, 87), white);}
-.purpleButton:hover, .purpleButtonFake:hover {background-image: radial-gradient( rgb(255, 0, 255), white);}
-.greyButton, .greyButtonFake {background-image: radial-gradient( rgb(39, 39, 39), white);}
-.greyButton:hover, .greyButtonFake:hover {background-image: radial-gradient( rgb(153, 153, 153), white);}
+#colorChoose .redButton {background-image: radial-gradient( rgb(107, 0, 0), white);}
+#colorChoose .redButton:hover, .fake1 .redButtonFake:hover {background-image: radial-gradient( rgb(255, 4, 4), white);}
+#colorChoose .yellowButton {background-image: radial-gradient( rgb(116, 116, 0), white);}
+#colorChoose .yellowButton:hover, .fake1 .yellowButtonFake:hover {background-image: radial-gradient( rgb(255, 255, 0), white);}
+#colorChoose .greenButton {background-image: radial-gradient( rgb(0, 70, 0), white);}
+#colorChoose .greenButton:hover, .fake1 .greenButtonFake:hover {background-image: radial-gradient( rgb(0, 255, 0), white);}
+#colorChoose .blueButton {background-image: radial-gradient( rgb(0, 0, 78), white);}
+#colorChoose .blueButton:hover, .fake1 .blueButtonFake:hover {background-image: radial-gradient( rgb(0, 0, 255), white);}
+#colorChoose .cyanButton {background-image: radial-gradient( rgb(0, 97, 97), white);}
+#colorChoose .cyanButton:hover, .fake1 .cyanButtonFake:hover {background-image: radial-gradient( rgb(0, 255, 255), white);}
+#colorChoose .purpleButton {background-image: radial-gradient( rgb(87, 0, 87), white);}
+#colorChoose .purpleButton:hover, .fake1 .purpleButtonFake:hover {background-image: radial-gradient( rgb(255, 0, 255), white);}
+#colorChoose .greyButton {background-image: radial-gradient( rgb(39, 39, 39), white);}
+#colorChoose .greyButton:hover, .fake1 .greyButtonFake:hover {background-image: radial-gradient( rgb(153, 153, 153), white);}
+#enemyColorChoose .redButton {background-image: radial-gradient( rgb(107, 0, 0), black);}
+#enemyColorChoose .redButton:hover, .fake2 .redButtonFake:hover {background-image: radial-gradient( rgb(255, 4, 4), black);}
+#enemyColorChoose .yellowButton {background-image: radial-gradient( rgb(116, 116, 0), black);}
+#enemyColorChoose .yellowButton:hover, .fake2 .yellowButtonFake:hover {background-image: radial-gradient( rgb(255, 255, 0), black);}
+#enemyColorChoose .greenButton {background-image: radial-gradient( rgb(0, 70, 0), black);}
+#enemyColorChoose .greenButton:hover, .fake2 .greenButtonFake:hover {background-image: radial-gradient( rgb(0, 255, 0), black);}
+#enemyColorChoose .blueButton {background-image: radial-gradient( rgb(0, 0, 78), black);}
+#enemyColorChoose .blueButton:hover, .fake2 .blueButtonFake:hover {background-image: radial-gradient( rgb(0, 0, 255), black);}
+#enemyColorChoose .cyanButton {background-image: radial-gradient( rgb(0, 97, 97), black);}
+#enemyColorChoose .cyanButton:hover, .fake2 .cyanButtonFake:hover {background-image: radial-gradient( rgb(0, 255, 255), black);}
+#enemyColorChoose .purpleButton {background-image: radial-gradient( rgb(87, 0, 87), black);}
+#enemyColorChoose .purpleButton:hover, .fake2 .purpleButtonFake:hover {background-image: radial-gradient( rgb(255, 0, 255), black);}
+#enemyColorChoose .greyButton {background-image: radial-gradient( rgb(39, 39, 39), black);}
+#enemyColorChoose .greyButton:hover, .fake2 .greyButtonFake:hover {background-image: radial-gradient( rgb(153, 153, 153), black);}
 
 .fakes1 {
+    width:43px;
+    height: 43px;
     transform: translateX(50px);
     background-image: radial-gradient(pink, black);
 }
 .fakes2 {
+    width:43px;
+    height: 43px;
     transform: translateX(-50px);
     background-image: radial-gradient(pink, black);
 }
@@ -251,7 +287,6 @@ body{
     background-color: black;
     z-index: -20;
 } */
-
 #whoseTurn {
     margin: 0;
     padding: 0;
@@ -260,12 +295,17 @@ body{
     top: 30px;
     transform: translateX(-50%);
     display: flex;
-    justify-content: space-around;
+    justify-content: space-between;
     align-items: center;
     width: 100%;
     text-align: center;
 }
 #tellTurn {
+    position:fixed;
+    left: 50%;
+    top: 10px;
+    transform: translateX(-50%);
+    z-index: 600;
     margin:0;
     padding: 0;
     color: red;
