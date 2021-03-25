@@ -36,9 +36,10 @@ const fake2 = document.querySelector(".fake2");
 const firstWin = document.querySelector("#firstWin")
 const secondWin = document.querySelector("#secondWin")
 const lastWin = document.querySelector("#lastWin")
+const loseModal = document.querySelector("#loseModal")
 const secondButton = document.querySelector("#secondButton")
 const thirdButton = document.querySelector("#thirdButton")
-const restartButton = document.querySelector("#restartButton")
+const restartButton = document.querySelectorAll(".restartButton")
 const whoseTurn = document.querySelector("#whoseTurn");
 ///////////Variables
 let wonFirstBoard = false;
@@ -235,9 +236,11 @@ const changePlayerColor = (currentColor, character) => {
 }
 const startSecondBoard = () => {
     secondBoardMaker();
+    firstWin.classList.add("closeModal")
 }
 const startThirdBoard = () => {
     thirdBoardMaker();
+    secondWin.classList.add("closeModal")
 }
 const restartAllOver = () => {
     theThirdBoard.innerHTML = "";
@@ -248,11 +251,23 @@ const restartAllOver = () => {
         fakeButton[0].classList.add("closeModal")
         fakeButton[1].classList.add("closeModal")
     }
+    if(loseModal.classList.contains("closeModal") === false){
+        loseModal.classList.add("closeModal")
+    }
+    if(firstWin.classList.contains("closeModal") === false){
+        lastWin.classList.add("closeModal")
+    }
+    if(secondWin.classList.contains("closeModal") === false){
+        secondWin.classList.add("closeModal")
+    }
+    if(lastWin.classList.contains("closeModal") === false){
+        lastWin.classList.add("closeModal")
+    }
+    openingModal.classList.remove("closeModal")
     wonThirdBoard = false;
     wonSecondBoard = false;
     wonFirstBoard = false;
-    whoseTurn.innerHTML = `<h4>Player: 0% </h4><h1 id="tellTurn">${playersTurns().toUpperCase()}'S TURN<h1><h4>Enemy: 0% </h4>`;
-    firstBoardMaker();
+    whoseTurn.innerHTML = `<h4>Player: 0%</h4><h1 id="tellTurn">${playersTurns().toUpperCase()}'S TURN<h1><h4>Enemy: 0%</h4>`;
 }
 const checkAbove = (j, i, currentColor, character) => {
     const rowAbove = j-1;
@@ -559,6 +574,7 @@ const checkWin = () =>{
     if(playerPoints/totalPoints >= 1/2 && wonFirstBoard === false){
         console.log("Player wins")
         wonFirstBoard = true;
+        turns = 0
         theFirstBoard.innerHTML = "";
         for (let i = 0; i < 2; i++){
             const removedColor = unChoosableColorOne.shift();
@@ -572,11 +588,12 @@ const checkWin = () =>{
         return
     }
     if(enemyPoints/totalPoints >= 1/2 && wonFirstBoard === false){
-        console.log("enemy wins")
+        loseModal.classList.remove("closeModal")
     }
     if(playerPoints/totalPoints >= 1/2 && wonSecondBoard === false && wonFirstBoard === true){
         console.log("Player wins")
         wonSecondBoard = true;
+        turns = 0;
         theSecondBoard.innerHTML = "";
         for (let i = 0; i < 2; i++){
             const removedColor = unChoosableColorOne.shift();
@@ -585,9 +602,10 @@ const checkWin = () =>{
             fakeButton[1].classList.add("closeModal")
         }
         secondWin.classList.remove("closeModal");
+        whoseTurn.innerHTML = `<h4>Player: 0% </h4><h1 id="tellTurn">${playersTurns().toUpperCase()}'S TURN<h1><h4>Enemy: 0% </h4>`;
     }
     if(enemyPoints/totalPoints >= 1/2 && wonSecondBoard === false && wonFirstBoard === true){
-        console.log("enemy wins")
+        loseModal.classList.remove("closeModal")
     }
 }
 const checkWinThird = () =>{
@@ -607,18 +625,19 @@ const checkWinThird = () =>{
                 noPoints +=1;
             }
         }
-        lastWin.classList.remove("closeModal");
     }
     const totalPoints = playerPoints + enemyPoints + noPoints;
-    const turnString = `<h4>Player: ${(playerPoints/totalPoints) * 100}% </h4><h1 id="tellTurn">${playersTurns().toUpperCase()}'S TURN<h1><h4>Enemy: ${(enemyPoints/totalPoints) * 100}% </h4>`;
+    const turnString = `<h4>Player: ${(Math.round(playerPoints/totalPoints) * 100)}% </h4><h1 id="tellTurn">${playersTurns().toUpperCase()}'S TURN<h1><h4>Enemy: ${(Math.round(enemyPoints/totalPoints) * 100)}% </h4>`;
     whoseTurn.innerHTML = turnString
     if(playerPoints/totalPoints >= 1/2 && wonThirdBoard === false && wonSecondBoard === true){
         console.log("Player wins")
         wonThirdBoard = true;
-        alert("YOU WON!!!!!!")
+        turn = 0;
+        lastWin.classList.remove("closeModal");
+        whoseTurn.innerHTML = `<h4>Player: 0% </h4><h1 id="tellTurn">${playersTurns().toUpperCase()}'S TURN<h1><h4>Enemy: 0% </h4>`;
     }
     if(enemyPoints/totalPoints >= 1/2 && wonSecondBoard === false && wonFirstBoard === true){
-        console.log("enemy wins")
+        loseModal.classList.remove("closeModal")
     }
 }
 const gameFunction = (currentColor) => {
@@ -669,15 +688,18 @@ const gameFunction = (currentColor) => {
         turnChange();
     }
 }
+const removeColorAddHidden = () => {
+    const removedColor = unChoosableColorOne.shift();
+    const hideFakeButton = document.querySelectorAll(`.${removedColor}ButtonFake`)
+    hideFakeButton[0].classList.add("closeModal")
+    hideFakeButton[1].classList.add("closeModal")
+}
 const chooseRed = () =>{
     gameFunction(theColorsAvailable[0]);
     unChoosableColorOne.push(theColorsAvailable[0]);
     redButtonFake[0].classList.remove("closeModal")
     redButtonFake[1].classList.remove("closeModal")
-    const removedColor = unChoosableColorOne.shift();
-    const hideFakeButton = document.querySelectorAll(`.${removedColor}ButtonFake`)
-    hideFakeButton[0].classList.add("closeModal")
-    hideFakeButton[1].classList.add("closeModal")
+    removeColorAddHidden()
     closeColorChoose();
 }
 const chooseYellow = () =>{
@@ -685,10 +707,7 @@ const chooseYellow = () =>{
     unChoosableColorOne.push(theColorsAvailable[1]);
     yellowButtonFake[0].classList.remove("closeModal")
     yellowButtonFake[1].classList.remove("closeModal")
-    const removedColor = unChoosableColorOne.shift();
-    const hideFakeButton = document.querySelectorAll(`.${removedColor}ButtonFake`)
-    hideFakeButton[0].classList.add("closeModal")
-    hideFakeButton[1].classList.add("closeModal")
+    removeColorAddHidden()
     closeColorChoose();
 }
 const chooseGreen = () =>{
@@ -696,10 +715,7 @@ const chooseGreen = () =>{
     unChoosableColorOne.push(theColorsAvailable[2]);
     greenButtonFake[0].classList.remove("closeModal")
     greenButtonFake[1].classList.remove("closeModal")
-    const removedColor = unChoosableColorOne.shift();
-    const hideFakeButton = document.querySelectorAll(`.${removedColor}ButtonFake`)
-    hideFakeButton[0].classList.add("closeModal")
-    hideFakeButton[1].classList.add("closeModal")
+    removeColorAddHidden()
     closeColorChoose();
 }
 const chooseBlue = () =>{
@@ -707,10 +723,7 @@ const chooseBlue = () =>{
     unChoosableColorOne.push(theColorsAvailable[3]);
     blueButtonFake[0].classList.remove("closeModal")
     blueButtonFake[1].classList.remove("closeModal")
-    const removedColor = unChoosableColorOne.shift();
-    const hideFakeButton = document.querySelectorAll(`.${removedColor}ButtonFake`)
-    hideFakeButton[0].classList.add("closeModal")
-    hideFakeButton[1].classList.add("closeModal")
+    removeColorAddHidden()
     closeColorChoose();
 }
 const chooseCyan = () =>{
@@ -718,10 +731,7 @@ const chooseCyan = () =>{
     unChoosableColorOne.push(theColorsAvailable[4]);
     cyanButtonFake[0].classList.remove("closeModal")
     cyanButtonFake[1].classList.remove("closeModal")
-    const removedColor = unChoosableColorOne.shift();
-    const hideFakeButton = document.querySelectorAll(`.${removedColor}ButtonFake`)
-    hideFakeButton[0].classList.add("closeModal")
-    hideFakeButton[1].classList.add("closeModal")
+    removeColorAddHidden()
     closeColorChoose();
 }
 const choosePurple = () =>{
@@ -729,10 +739,7 @@ const choosePurple = () =>{
     unChoosableColorOne.push(theColorsAvailable[5]);
     purpleButtonFake[0].classList.remove("closeModal")
     purpleButtonFake[1].classList.remove("closeModal")
-    const removedColor = unChoosableColorOne.shift();
-    const hideFakeButton = document.querySelectorAll(`.${removedColor}ButtonFake`)
-    hideFakeButton[0].classList.add("closeModal")
-    hideFakeButton[1].classList.add("closeModal")
+    removeColorAddHidden()
     closeColorChoose();
 }
 const chooseGrey = () =>{
@@ -740,10 +747,7 @@ const chooseGrey = () =>{
     unChoosableColorOne.push(theColorsAvailable[6]);
     greyButtonFake[0].classList.remove("closeModal")
     greyButtonFake[1].classList.remove("closeModal")
-    const removedColor = unChoosableColorOne.shift();
-    const hideFakeButton = document.querySelectorAll(`.${removedColor}ButtonFake`)
-    hideFakeButton[0].classList.add("closeModal")
-    hideFakeButton[1].classList.add("closeModal")
+    removeColorAddHidden()
     closeColorChoose();
 }
 ////////////////Event Listeners
@@ -764,4 +768,5 @@ purpleButton[1].addEventListener("click", choosePurple)
 greyButton[1].addEventListener("click", chooseGrey)
 secondButton.addEventListener("click", startSecondBoard)
 thirdButton.addEventListener("click", startThirdBoard)
-restartButton.addEventListener("click", restartAllOver)
+restartButton[0].addEventListener("click", restartAllOver)
+restartButton[1].addEventListener("click", restartAllOver)
