@@ -31,13 +31,19 @@ const blueButtonFake = document.querySelectorAll(".blueButtonFake");
 const cyanButtonFake = document.querySelectorAll(".cyanButtonFake");
 const purpleButtonFake = document.querySelectorAll(".purpleButtonFake");
 const greyButtonFake = document.querySelectorAll(".greyButtonFake");
-const fake1 = document.querySelector(".fake1")
-const fake2 = document.querySelector(".fake2")
-const whoseTurn = document.querySelector("#whoseTurn")
+const fake1 = document.querySelector(".fake1");
+const fake2 = document.querySelector(".fake2");
+const firstWin = document.querySelector("#firstWin")
+const secondWin = document.querySelector("#secondWin")
+const lastWin = document.querySelector("#lastWin")
+const secondButton = document.querySelector("#secondButton")
+const thirdButton = document.querySelector("#thirdButton")
+const restartButton = document.querySelector("#restartButton")
+const whoseTurn = document.querySelector("#whoseTurn");
+///////////Variables
 let wonFirstBoard = false;
 let wonSecondBoard = false;
 let wonThirdBoard = false;
-///////////Variables
 const theColorsAvailable = ["red", "yellow", "green", "blue", "cyan", "purple","grey"];
 const unChoosableColorOne = [];
 const firstBoardArray = [];
@@ -61,16 +67,13 @@ const turnChange = () =>{
         if(fake1.classList.contains("closeModal")){
             fake1.classList.remove("closeModal")
             colorChooseModal.classList.remove("closeModal")
-            
             fake2.classList.add("closeModal")
             enemyColorChooseModal.classList.add("closeModal")
-        
         }
     } else {
         if(fake2.classList.contains("closeModal")){
             fake2.classList.remove("closeModal")
             enemyColorChooseModal.classList.remove("closeModal")
-            
             fake1.classList.add("closeModal")
             colorChooseModal.classList.add("closeModal")
         }
@@ -230,7 +233,27 @@ const changePlayerColor = (currentColor, character) => {
                     // console.log(rowColTarget[i].classList.contains(character));
                 }
 }
-
+const startSecondBoard = () => {
+    secondBoardMaker();
+}
+const startThirdBoard = () => {
+    thirdBoardMaker();
+}
+const restartAllOver = () => {
+    theThirdBoard.innerHTML = "";
+    theSecondBoard.innerHTML = "";
+    for (let i = 0; i < 2; i++){
+        const removedColor = unChoosableColorOne.shift();
+        const fakeButton = document.querySelectorAll(`.${removedColor}ButtonFake`);
+        fakeButton[0].classList.add("closeModal")
+        fakeButton[1].classList.add("closeModal")
+    }
+    wonThirdBoard = false;
+    wonSecondBoard = false;
+    wonFirstBoard = false;
+    whoseTurn.innerHTML = `<h4>Player: 0% </h4><h1 id="tellTurn">${playersTurns().toUpperCase()}'S TURN<h1><h4>Enemy: 0% </h4>`;
+    firstBoardMaker();
+}
 const checkAbove = (j, i, currentColor, character) => {
     const rowAbove = j-1;
     const rowAboveChecked = document.querySelector(`#piece${rowAbove}${i}`);
@@ -265,19 +288,16 @@ const checkLeft = (j, i, currentColor, character) => {
         const rowBotLeft = document.querySelector(`#piece${rowBelow}${i-1}`);
         const rowTopLeft = document.querySelector(`#piece${sameRow}${i-1}`);
         if(currentRowCol.classList.contains(character)){
-            
             if(rowBelow <= 9 && rowBelow >= 0){
                 if(rowBotLeft.classList.contains(currentColor) && rowBotLeft.classList.contains('none')){
                     rowBotLeft.classList.remove('none');
                     rowBotLeft.classList.add(character);
-            
                 }
             }  
             if(sameRow <= 9 && sameRow >= 0){ 
                 if(rowTopLeft.classList.contains(currentColor) && rowTopLeft.classList.contains('none')){
                     rowTopLeft.classList.remove('none');
                     rowTopLeft.classList.add(character);
-            
                 }
             }
         }
@@ -285,19 +305,16 @@ const checkLeft = (j, i, currentColor, character) => {
         const rowBotLeft = document.querySelector(`#piece${sameRow}${i-1}`);
         const rowTopLeft = document.querySelector(`#piece${rowAbove}${i-1}`);
         if(currentRowCol.classList.contains(character)){
-            
             if(sameRow <= 9 && sameRow >= 0){
                 if(rowBotLeft.classList.contains(currentColor) && rowBotLeft.classList.contains('none')){
                     rowBotLeft.classList.remove('none');
                     rowBotLeft.classList.add(character);
-            
                 }
             }
             if(rowAbove <= 9 && rowAbove >= 0){
                 if(rowTopLeft.classList.contains(currentColor) && rowTopLeft.classList.contains('none')){
                     rowTopLeft.classList.remove('none');
                     rowTopLeft.classList.add(character);
-            
                 }
             }
         }
@@ -312,19 +329,16 @@ const checkRight = (j, i, currentColor, character) => {
         const rowBotRight = document.querySelector(`#piece${rowBelow}${i+1}`);
         const rowTopRight = document.querySelector(`#piece${sameRow}${i+1}`);
         if(currentRowCol.classList.contains(character)){
-            
             if(rowBelow <= 9 && rowBelow >= 0){
                 if(rowBotRight.classList.contains(currentColor) && rowBotRight.classList.contains('none')){
                     rowBotRight.classList.remove('none');
                     rowBotRight.classList.add(character);
-            
                 }
             }
             if(sameRow <= 9 && sameRow >= 0){
                 if(rowTopRight.classList.contains(currentColor) && rowTopRight.classList.contains('none')){
                     rowTopRight.classList.remove('none');
                     rowTopRight.classList.add(character);
-            
                 }
             }
         }
@@ -332,19 +346,16 @@ const checkRight = (j, i, currentColor, character) => {
         const rowBotRight = document.querySelector(`#piece${sameRow}${i+1}`);
         const rowTopRight = document.querySelector(`#piece${rowAbove}${i+1}`);
         if(currentRowCol.classList.contains(character)){
-            
             if(sameRow <= 9 && sameRow >= 0){
                 if(rowBotRight.classList.contains(currentColor) && rowBotRight.classList.contains('none')){
                     rowBotRight.classList.remove('none');
                     rowBotRight.classList.add(character);
-            
                 }
             }
             if(rowAbove <= 9 && rowAbove >= 0){
                 if(rowTopRight.classList.contains(currentColor) && rowTopRight.classList.contains('none')){
                     rowTopRight.classList.remove('none');
                     rowTopRight.classList.add(character);
-            
                 }
             }
         }
@@ -359,7 +370,6 @@ const checkAboveThird = (j, i, currentColor, character) => {
             rowAboveChecked.classList.remove('none');
             rowAboveChecked.classList.add(character);
         }
-        
     }
 }
 const checkBelowThird = (j, i, currentColor, character) => {
@@ -370,9 +380,7 @@ const checkBelowThird = (j, i, currentColor, character) => {
         if(rowBelowChecked.classList.contains(currentColor) && (rowBelow <= 9 && rowBelow >= 0) && rowBelowChecked.classList.contains('none')){
             rowBelowChecked.classList.remove('none');
             rowBelowChecked.classList.add(character);
-    
         }
-        
     }
 }
 const checkLeftThird = (j, i, currentColor, character) => {
@@ -384,19 +392,16 @@ const checkLeftThird = (j, i, currentColor, character) => {
         const rowBotLeft = document.querySelector(`#piece${rowBelow}${i-1}`);
         const rowTopLeft = document.querySelector(`#piece${sameRow}${i-1}`);
         if(currentRowCol.classList.contains(character)){
-            
             if(rowBelow <= 9 && rowBelow >= 0){
                 if(rowBotLeft.classList.contains(currentColor) && rowBotLeft.classList.contains('none')){
                     rowBotLeft.classList.remove('none');
                     rowBotLeft.classList.add(character);
-            
                 }
             }  
             if(sameRow <= 9 && sameRow >= 0){ 
                 if(rowTopLeft.classList.contains(currentColor) && rowTopLeft.classList.contains('none')){
                     rowTopLeft.classList.remove('none');
                     rowTopLeft.classList.add(character);
-            
                 }
             }
         }
@@ -409,14 +414,12 @@ const checkLeftThird = (j, i, currentColor, character) => {
                 if(rowBotLeft.classList.contains(currentColor) && rowBotLeft.classList.contains('none')){
                     rowBotLeft.classList.remove('none');
                     rowBotLeft.classList.add(character);
-            
                 }
             }
             if(rowAbove <= 9 && rowAbove >= 0){
                 if(rowTopLeft.classList.contains(currentColor) && rowTopLeft.classList.contains('none')){
                     rowTopLeft.classList.remove('none');
                     rowTopLeft.classList.add(character);
-            
                 }
             }
         }
@@ -436,40 +439,34 @@ const checkRightThird = (j, i, currentColor, character) => {
                 if(rowBotRight.classList.contains(currentColor) && rowBotRight.classList.contains('none')){
                     rowBotRight.classList.remove('none');
                     rowBotRight.classList.add(character);
-            
                 }
             }
             if(sameRow <= 9 && sameRow >= 0){
                 if(rowTopRight.classList.contains(currentColor) && rowTopRight.classList.contains('none')){
                     rowTopRight.classList.remove('none');
                     rowTopRight.classList.add(character);
-            
                 }
             }
         }
     } else {
         const rowBotRight = document.querySelector(`#piece${sameRow}${i+1}`);
         const rowTopRight = document.querySelector(`#piece${rowAbove}${i+1}`);
-        if(currentRowCol.classList.contains(character)){
-            
+        if(currentRowCol.classList.contains(character)){ 
             if(sameRow <= 9 && sameRow >= 0){
                 if(rowBotRight.classList.contains(currentColor) && rowBotRight.classList.contains('none')){
                     rowBotRight.classList.remove('none');
                     rowBotRight.classList.add(character);
-            
                 }
             }
             if(rowAbove <= 9 && rowAbove >= 0){
                 if(rowTopRight.classList.contains(currentColor) && rowTopRight.classList.contains('none')){
                     rowTopRight.classList.remove('none');
                     rowTopRight.classList.add(character);
-            
                 }
             }
         }
     }
 }
-
 const goForward = (currentColor) => {
     for(let i = 0; i < 10; i++){
         for(let j = 0; j < 10; j++){
@@ -542,7 +539,6 @@ const checkWin = () =>{
     let playerPoints = 0;
     let enemyPoints = 0;
     let noPoints = 0;
-
     for(let i = 0; i < 10; i++){
         for( let j = 0; j < 10; j++){
             const thePiece = document.querySelector(`#piece${j}${i}`);
@@ -571,8 +567,8 @@ const checkWin = () =>{
             fakeButton[0].classList.add("closeModal")
             fakeButton[1].classList.add("closeModal")
         }
+        firstWin.classList.remove("closeModal");
         whoseTurn.innerHTML = `<h4>Player: 0% </h4><h1 id="tellTurn">${playersTurns().toUpperCase()}'S TURN<h1><h4>Enemy: 0% </h4>`;
-        secondBoardMaker();
         return
     }
     if(enemyPoints/totalPoints >= 1/2 && wonFirstBoard === false){
@@ -588,7 +584,7 @@ const checkWin = () =>{
             fakeButton[0].classList.add("closeModal")
             fakeButton[1].classList.add("closeModal")
         }
-        thirdBoardMaker();
+        secondWin.classList.remove("closeModal");
     }
     if(enemyPoints/totalPoints >= 1/2 && wonSecondBoard === false && wonFirstBoard === true){
         console.log("enemy wins")
@@ -598,7 +594,6 @@ const checkWinThird = () =>{
     let playerPoints = 0;
     let enemyPoints = 0;
     let noPoints = 0;
-
     for(let i = 0; i < 15; i++){
         for( let j = 0; j < 10; j++){
             const thePiece = document.querySelector(`#piece${j}${i}`);
@@ -612,6 +607,7 @@ const checkWinThird = () =>{
                 noPoints +=1;
             }
         }
+        lastWin.classList.remove("closeModal");
     }
     const totalPoints = playerPoints + enemyPoints + noPoints;
     const turnString = `<h4>Player: ${(playerPoints/totalPoints) * 100}% </h4><h1 id="tellTurn">${playersTurns().toUpperCase()}'S TURN<h1><h4>Enemy: ${(enemyPoints/totalPoints) * 100}% </h4>`;
@@ -625,7 +621,6 @@ const checkWinThird = () =>{
         console.log("enemy wins")
     }
 }
-
 const gameFunction = (currentColor) => {
     if(wonFirstBoard === false){
         if(playersTurns() === players[0]){
@@ -673,15 +668,7 @@ const gameFunction = (currentColor) => {
         turns += 1;
         turnChange();
     }
-    
 }
-////////need to somehow limit the color able to choose by current ones played
-//maybe put up a modal in the exact position of the color thats not clickable? 
-// the modal will lock the color next turn
-//maybe make an array that stores 2 colors at a time and it will close those 2
-    //ex. color = [blue, red]
-    // push(new color) and remove hidden class from that modal color
-    //shift first index and give the modal a hidden class 
 const chooseRed = () =>{
     gameFunction(theColorsAvailable[0]);
     unChoosableColorOne.push(theColorsAvailable[0]);
@@ -775,3 +762,6 @@ blueButton[1].addEventListener("click", chooseBlue)
 cyanButton[1].addEventListener("click", chooseCyan)
 purpleButton[1].addEventListener("click", choosePurple)
 greyButton[1].addEventListener("click", chooseGrey)
+secondButton.addEventListener("click", startSecondBoard)
+thirdButton.addEventListener("click", startThirdBoard)
+restartButton.addEventListener("click", restartAllOver)
