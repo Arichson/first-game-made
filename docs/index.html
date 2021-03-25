@@ -9,6 +9,11 @@
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
+    <header id="whoseTurn">
+        <h2>Player: 0%</h2>
+        <h1 id="tellTurn">PLAYER ONE'S TURN</h1>
+        <h2>Enemy: 0%</h2>
+    </header>
     <div id="opening">
         <h1>Welcome to Game Name</h1>
         <p>
@@ -19,7 +24,7 @@
             If the enemy takes 50% you lose instead! <br />
             GOOD LUCK!    
         </p>
-        <p id="start">Start Game</p>
+        <div id="start">Local Pvp</div>
     </div>
     <ul id="colorChoose" class="closeModal">
         <li class="colorButtons redButton"></li>
@@ -57,12 +62,11 @@
         <li class="colorButtons fakes2 closeModal purpleButtonFake"></li>
         <li class="colorButtons fakes2 closeModal greyButtonFake"></li>
     </ul>
-    <div id="whoseTurn"><h4>Player: 0%</h4><h1 id="tellTurn">PLAYER'S TURN</h1><h4>Enemy: 0%</h4></div>
     <div id="boardOne">
         
     </div>
     <div id="firstWin" class="winModal closeModal">
-        <h3>You Won!</h3>
+        <h3 id="firstWinner">You Won!</h3>
         <p>You won the first battle! <br />
         In this up coming battle, there will be a hole on the map. <br />
         Work around the hole!</p>
@@ -71,7 +75,7 @@
     <div id="boardTwo">
     </div>
     <div id="secondWin" class="winModal closeModal">
-        <h3>You Won!</h3>
+        <h3 id="secondWinner">You Won!</h3>
         <p> The final stage is bigger.<br />
             You also start on the right now so becareful <br />
             Theres also multiple holes so good luck.</p>
@@ -81,7 +85,7 @@
 
     </div>
     <div id="lastWin" class="winModal closeModal">
-        <h3>You Won!</h3>
+        <h3 id="thirdWinner">You Won!</h3>
         <p> This was the last battle!<br />
         Theres no more maps.<br />
         However, you can restart the game.</p>
@@ -95,7 +99,5 @@
         Would you like to restart from stage 1?</p>
         <p id="restartTwo" class="restart">RESTART!</p>
     </div>
-    
-    
 </body>
 </html>

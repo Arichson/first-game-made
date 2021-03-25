@@ -1,17 +1,12 @@
-/*  git remote add upstream url
-git push upstream master */
 
+@import url('https://fonts.googleapis.com/css2?family=Orbitron&display=swap');
 *{
-    /* border: 2px solid black; */
     box-sizing: border-box;
     margin:0;
     padding:0;
 }
-body{
-    background-color: rgb(107, 45, 0);
-}
+body{background-color:black;}
 /* Individual hexagon colors */
-/* Make colors normal, gradient colors with white if player takes over and black if enemmy takes over */
 .red {background-color: red;}
 .yellow {background-color: yellow;}
 .green {background-color: green;}
@@ -19,13 +14,13 @@ body{
 .cyan {background-color: cyan;}
 .purple {background-color: purple;}
 .grey {background-color: grey;}
-.player.theHexagons {
+.Main_Character.theHexagons, .Main_Character.theThirdHexagons {
     background-image: url("../assets/Player\ 2.png");
     background-position: center;
     background-repeat: no-repeat;
     background-size: contain;
 }
-.enemy.theHexagons {
+.Protagonist.theHexagons, .Protagonist.theThirdHexagons {
     background-image: url("../assets/Player\ 1.png");
     background-position: center;
     background-repeat: no-repeat;
@@ -135,8 +130,8 @@ body{
     display: flex;
     width: 10vh;
     height: 70vh;
-    background-color: dimgray;
-    border: 2px solid black;
+    background-image: linear-gradient(white, black);
+    border: 2px solid rgb(255, 255, 255);
     position: fixed;
     top:50%;
     left: 50px;
@@ -152,8 +147,8 @@ body{
     display: flex;
     width: 10vh;
     height: 70vh;
-    background-color: dimgray;
-    border: 2px solid black;
+    background-image: linear-gradient(black, white);
+    border: 2px solid rgb(255, 255, 255);
     position: fixed;
     top:50%;
     right: 50px;
@@ -166,14 +161,11 @@ body{
     padding: 0 10px;
 }
 .colorButtons {
-    background-color: rgb(252, 252, 252);
     border: 2px solid black;
     width: 40px;
     height: 40px;
 }
-.colorButtons:hover{
-    cursor: pointer;
-}
+.colorButtons:hover{cursor: pointer;}
 .fakeModal {
     display: flex;
     width: 0;
@@ -186,7 +178,6 @@ body{
     list-style-type: none;
     padding: 0 10px;
 }
-
 .fake1 {
     top:50%;
     left: 0;
@@ -206,12 +197,12 @@ body{
 .cyanButton {background-color: cyan;}
 .purpleButton {background-color: purple;}
 .greyButton {background-color: grey;}
-
 .fakes1 {
     width:43px;
     height: 43px;
     transform: translateX(50px);
     background-image: url("../assets/Lock.png");
+    background-color: transparent;
     background-position: center;
     background-repeat: no-repeat;
     background-size: contain;
@@ -221,6 +212,7 @@ body{
     height: 43px;
     transform: translateX(-50px);
     background-image: url("../assets/Lock.png");
+    background-color: transparent;
     background-position: center;
     background-repeat: no-repeat;
     background-size: contain;
@@ -253,7 +245,7 @@ body{
 } */
 #whoseTurn {
     margin: 0;
-    padding: 0;
+    padding: 0 40px;
     position: absolute;
     left: 50%;
     top: 30px;
@@ -263,17 +255,18 @@ body{
     align-items: center;
     width: 100%;
     text-align: center;
+    font-family: 'Orbitron', sans-serif;
+    color: white;
 }
 #tellTurn {
     position:fixed;
     left: 50%;
-    top: 10px;
+    top: 5px;
     transform: translateX(-50%);
-    z-index: 600;
+    z-index: 6000;
     margin:0;
     padding: 0;
     color: red;
-
 }
 /* FIRST BOARD */
 #boardOne {
@@ -309,51 +302,84 @@ body{
     position: absolute;
     z-index: 20;
 }
-.colOdd {
-    top: -2.5%;
-}
-.colEven {
-    top: 2.5%;
-}
-#board1Col1 {
-    left:7%;
-}
-#board1Col2 {
-    left:14%;
-}
-#board1Col3 {
-    left:21%;
-}
-#board1Col4 {
-    left:28%;
-}
-#board1Col5 {
-    left:35%;
-}
-#board1Col6 {
-    left:42%;
-}
-#board1Col7 {
-    left:49%;
-}
-#board1Col8 {
-    left:56%;
-}
-#board1Col9 {
-    left:63%;
-}
-#board1Col10 {
-    left:70%;
-}
-#board1Col11 {
-    left:77%;
-}
-#board1Col12 {
-    left:84%;
-}
-#board1Col13 {
-    left:91%;
-}
-#board1Col14 {
-    left:98%;
+.colOdd {top: -2.5%;}
+.colEven {top: 2.5%;}
+#board1Col1 {left:7%;}
+#board1Col2 {left:14%;}
+#board1Col3 {left:21%;}
+#board1Col4 {left:28%;}
+#board1Col5 {left:35%;}
+#board1Col6 {left:42%;}
+#board1Col7 {left:49%;}
+#board1Col8 {left:56%;}
+#board1Col9 {left:63%;}
+#board1Col10 {left:70%;}
+#board1Col11 {left:77%;}
+#board1Col12 {left:84%;}
+#board1Col13 {left:91%;}
+#board1Col14 {left:98%;}
+@media screen and (max-width: 650px){
+    .theHexagons{
+        width: 30px;
+        height: 25px;
+    }
+    .theThirdHexagons{
+        width: 25px;
+        height: 20px;
+    }
+    #boardOne {
+        left: 50%;
+        top: 50%;
+        transform: translate(-36.6%, -50%);
+        width: 300px;
+        height: 250px;
+    }
+    #boardTwo {
+        left: 50%;
+        top: 50%;
+        transform: translate(-36.6%, -50%);
+        width: 300px;
+        height: 250px;
+    }
+    #boardThree {
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        width: 250px;
+        height: 200px;
+    }
+    #colorChoose, #enemyColorChoose{
+        width: 300px;
+        height: 40px;
+        bottom: 0px;
+        left: 50%;
+        transform: translate(-50%, 400%);
+        flex-flow: row;
+    }
+    #colorChooser{background-image: left to right linear-gradient(white, black);}
+    .colorButtons {
+        border: 2px solid black;
+        width: 30px;
+        height: 30px;
+    }
+    .fake1, .fake2 {
+        width: 300px;
+        height: 40px;
+        bottom: 0px;
+        left: 50%;
+        transform: translate(-50%, 500%);
+        flex-flow: row;
+    }
+    .fakes1, .fakes2 {
+        width:30px;
+        height: 30px;
+        transform: translateY(-40px);
+        background-color: transparent;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: contain;
+    }
+    #tellTurn {
+        top: 60px;
+    }
 }

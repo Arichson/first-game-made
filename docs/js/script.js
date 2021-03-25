@@ -1,14 +1,3 @@
-////////// both side need to start with one square
-// if you change your color, it has to be a different one from your current color and the enemies current color
-//if you change color you take control of the colors you chose that is next to your squares
-    // example if youre red and you change to blue, you take control of the blue hexagons
-    // set classes to each tag? then change the classes when you take over it
-        //example class green is your color then if you choose blue, it takes over all classes called blue and also changes the current class you have to blue( not green anymore)
-// win condition is when you have 50% of the board. lose if opponent has 50% of the board
-    //possibly store it all in an array and check if an array is filled?
-    // or set each squares value to 1? and then when they add up to 50 you win.
-//have a modal pop up everytime to choose the color you want
-//modal in the beginning too
 //////////DOM Stuff
 const theFirstBoard = document.querySelector("#boardOne");
 const theSecondBoard = document.querySelector("#boardTwo");
@@ -42,18 +31,21 @@ const thirdButton = document.querySelector("#thirdButton")
 const restartOne = document.querySelector("#restartOne")
 const restartTwo = document.querySelector("#restartTwo")
 const whoseTurn = document.querySelector("#whoseTurn");
+const firstWinner = document.querySelector("#firstWinner");
+const secondWinner = document.querySelector("#secondWinner");
+const thirdWinner = document.querySelector("#thirdWinner");
 ///////////Variables
 let wonFirstBoard = false;
 let wonSecondBoard = false;
 let wonThirdBoard = false;
 const theColorsAvailable = ["red", "yellow", "green", "blue", "cyan", "purple","grey"];
 const unChoosableColorOne = [];
-const players = ["player", "enemy"];
-const playerCurrentColor = theColorsAvailable[0];
-const enemyCurrentColor = theColorsAvailable[6];
+const players = ["Main_Character", "Protagonist"];
 let turns = 0;
+let mainCharacterPoints = 0;
+let protagonistPoints = 0;
 ///////////Functions
-const playersTurns = () => {
+const playersTurns = () => { ///determines whos turn it is
     const currentTurn = turns % 2;
     if( currentTurn === 0) {
         return players[0];
@@ -61,7 +53,7 @@ const playersTurns = () => {
         return players[1];
     }
 }
-const playersTurnsText = () => {
+const playersTurnsText = () => { ////////this is the text used for the html
     const currentTurn = turns % 2;
     if( currentTurn === 1) {
         return players[0];
@@ -69,7 +61,8 @@ const playersTurnsText = () => {
         return players[1];
     }
 }
-const turnChange = () =>{
+
+const turnChange = () =>{ //////////when the turn changes, this will close one of the color modals and open the other
     if(playersTurns() === players[0]){
         if(fake1.classList.contains("closeModal")){
             fake1.classList.remove("closeModal")
@@ -86,13 +79,13 @@ const turnChange = () =>{
         }
     }
 }
-const randNum = (limit) => {
+const randNum = (limit) => { ////////just a random number generator
     return Math.floor(Math.random() * limit);
 }
-const firstBoardMaker = () => {
+const firstBoardMaker = () => {    ////////////makes the first board
     let pieceColor = "";
     for(let i = 0; i < 10; i++) {
-        const colParity = () => {
+        const colParity = () => {   ///////determines odd and even columns, matters for board arrangement
             if (i % 2 === 0){
                 return "colEven";
             } else {
@@ -100,7 +93,7 @@ const firstBoardMaker = () => {
             }
         }
         pieceColor += `<div id=board1Col${i} class="${colParity(i)} column">`;
-        for(let j = 0; j<10; j++){
+        for(let j = 0; j<10; j++){      //// forloop makes the board and innter html
             const owner = () =>{
                 if(i===0 && j === 9){
                     return players[0];
@@ -113,8 +106,8 @@ const firstBoardMaker = () => {
             const currentColor =  theColorsAvailable[randNum(theColorsAvailable.length)];
             const newDiv = `<div id="piece${j}${i}" class="${currentColor} theHexagons ${owner()}"></div>`;
             pieceColor += newDiv;
-            if(i===0 && j === 9 || i === 9 && j === 0){
-                unChoosableColorOne.push(currentColor);
+            if(i===0 && j === 9 || i === 9 && j === 0){ //// same place as the players,
+                unChoosableColorOne.push(currentColor); ///////this will help lock certain colors from being used
                 const lostColor = document.querySelectorAll(`.${currentColor}ButtonFake`)
                 lostColor[0].classList.remove("closeModal")
                 lostColor[1].classList.remove("closeModal")
@@ -122,7 +115,7 @@ const firstBoardMaker = () => {
         }
         pieceColor += `</div>`
     }
-    theFirstBoard.innerHTML = pieceColor;
+    theFirstBoard.innerHTML = pieceColor; ///////this is the first board
     theSecondBoard.innerHTML = "";
     theThirdBoard.innerHTML = "";
 }
@@ -159,9 +152,9 @@ const secondBoardMaker = () => {
             const newDiv = `<div id="piece${j}${i}" class="${colorChosen} theHexagons ${owner()}"></div>`;
             pieceColor += newDiv;
             if(i===0 && j === 0 || i === 9 && j === 9){
-                console.log(i)
-                console.log(j)
-                console.log(colorChosen)
+                
+                
+                
                 unChoosableColorOne.push(colorChosen);
                 const lostColor = document.querySelectorAll(`.${colorChosen}ButtonFake`)
                 lostColor[0].classList.remove("closeModal")
@@ -207,9 +200,6 @@ const thirdBoardMaker = () => {
             const newDiv = `<div id="piece${j}${i}" class="${colorChosen} theThirdHexagons ${owner()}"></div>`;
             pieceColor += newDiv;
             if(i===14 && j === 4 || i === 0 && j === 4){
-                console.log(i)
-                console.log(j)
-                console.log(colorChosen)
                 unChoosableColorOne.push(colorChosen);
                 const lostColor = document.querySelectorAll(`.${colorChosen}ButtonFake`)
                 lostColor[0].classList.remove("closeModal")
@@ -228,10 +218,6 @@ const closeTheOpening = () => {
     fake1.classList.remove("closeModal")
     firstBoardMaker();
 }
-const closeColorChoose = () => {
-    // colorChooseModal.classList.add("closeModal");
-}
-// console.log(playersTurns())
 const removeColor = (theTarget) => {
     theColorsAvailable.forEach( color => {
         theTarget.classList.remove(color);
@@ -243,7 +229,6 @@ const changePlayerColor = (currentColor, character) => {
                 for( let i = 0; i < rowColTarget.length; i++){
                     removeColor(rowColTarget[i]);
                     rowColTarget[i].classList.add(currentColor);
-                    // console.log(rowColTarget[i].classList.contains(character));
                 }
 }
 const startSecondBoard = () => {
@@ -281,7 +266,7 @@ const restartAllOver = () => {
     wonThirdBoard = false;
     wonSecondBoard = false;
     wonFirstBoard = false;
-    whoseTurn.innerHTML = `<h4>Player: 0%</h4><h1 id="tellTurn">${playersTurns().toUpperCase()}'S TURN<h1><h4>Enemy: 0%</h4>`;
+    whoseTurn.innerHTML = `<h2>Main: 0%</h2><h1 id="tellTurn">${playersTurns().tzoUpperCase()}'S TURN<h1><h2>Pro: 0%</h2>`;
 }
 const checkAbove = (j, i, currentColor, character) => {
     const rowAbove = j-1;
@@ -436,7 +421,6 @@ const checkLeftThird = (j, i, currentColor, character) => {
         const rowBotLeft = document.querySelector(`#piece${sameRow}${i-1}`);
         const rowTopLeft = document.querySelector(`#piece${rowAbove}${i-1}`);
         if(currentRowCol.classList.contains(character)){
-            
             if(sameRow <= 9 && sameRow >= 0){
                 if(rowBotLeft.classList.contains(currentColor) && rowBotLeft.classList.contains('none')){
                     rowBotLeft.classList.remove('none');
@@ -564,7 +548,7 @@ const goBackwardsThird = (currentColor) => {
 }
 const checkWin = () =>{
     let playerPoints = 0;
-    let enemyPoints = 0;
+    let otherPoints = 0;
     let noPoints = 0;
     for(let i = 0; i < 10; i++){
         for( let j = 0; j < 10; j++){
@@ -573,39 +557,50 @@ const checkWin = () =>{
                 playerPoints +=1;
             }
             if(thePiece.classList.contains(players[1])){
-                enemyPoints +=1;
+                otherPoints +=1;
             }
             if(thePiece.classList.contains('none')){
                 noPoints +=1;
             }
         }
     }
-    const totalPoints = playerPoints + enemyPoints + noPoints;
-    const turnString = `<h4>Player: ${Math.round((playerPoints/totalPoints) * 100)}% </h4><h1 id="tellTurn">${playersTurnsText().toUpperCase()}'S TURN<h1><h4>Enemy: ${Math.round((enemyPoints/totalPoints) * 100)}% </h4>`;
+    const totalPoints = playerPoints + otherPoints + noPoints;
+    const turnString = `<h2>Main: ${Math.round((playerPoints/totalPoints) * 100)}% </h2><h1 id="tellTurn">${playersTurnsText().toUpperCase()}'S TURN<h1><h2>Pro: ${Math.round((otherPoints/totalPoints) * 100)}% </h2>`;
     whoseTurn.innerHTML = turnString
-    if(playerPoints/totalPoints >= 1/2 && wonFirstBoard === false){
-        console.log("Player wins")
+    if((playerPoints/totalPoints >= 1/2 || otherPoints/totalPoints > 1/2)&& wonFirstBoard === false){
+        firstWinner.innerText = `The ${playersTurns()} Won!`;
         wonFirstBoard = true;
-        turns = 0
+        if(playersTurns() === players[0]){
+            mainCharacterPoints += 1;
+            turns = 1;
+        } else {
+            turns = 0;
+            protagonistPoints += 1;
+        }
         theFirstBoard.innerHTML = "";
         for (let i = 0; i < 2; i++){
             const removedColor = unChoosableColorOne.shift();
-            console.log(removedColor)
             const fakeButton = document.querySelectorAll(`.${removedColor}ButtonFake`);
             fakeButton[0].classList.add("closeModal")
             fakeButton[1].classList.add("closeModal")
         }
         firstWin.classList.remove("closeModal");
-        whoseTurn.innerHTML = `<h4>Player: 0% </h4><h1 id="tellTurn">${playersTurnsText().toUpperCase()}'S TURN<h1><h4>Enemy: 0% </h4>`;
+        whoseTurn.innerHTML = `<h2>Main: 0% </h2><h1 id="tellTurn">${playersTurnsText().toUpperCase()}'S TURN<h1><h2>Pro: 0% </h2>`;
         return
     }
-    if(enemyPoints/totalPoints >= 1/2 && wonFirstBoard === false){
-        loseModal.classList.remove("closeModal")
-    }
-    if(playerPoints/totalPoints >= 1/2 && wonSecondBoard === false && wonFirstBoard === true){
-        console.log("Player wins")
+    // if(otherPoints/totalPoints >= 1/2 && wonFirstBoard === false){
+    //     loseModal.classList.remove("closeModal")
+    // }
+    if((playerPoints/totalPoints >= 1/2 || otherPoints/totalPoints > 1/2)&& wonSecondBoard === false && wonFirstBoard === true){
+        secondWinner.innerText = `The ${playersTurns()} Won!`;
         wonSecondBoard = true;
-        turns = 0;
+        if(playersTurns() === players[0]){
+            mainCharacterPoints += 1;
+            turns = 1;
+        } else {
+            turns = 0;
+            protagonistPoints += 1;
+        }
         theSecondBoard.innerHTML = "";
         for (let i = 0; i < 2; i++){
             const removedColor = unChoosableColorOne.shift();
@@ -614,15 +609,15 @@ const checkWin = () =>{
             fakeButton[1].classList.add("closeModal")
         }
         secondWin.classList.remove("closeModal");
-        whoseTurn.innerHTML = `<h4>Player: 0% </h4><h1 id="tellTurn">${playersTurnsText().toUpperCase()}'S TURN<h1><h4>Enemy: 0% </h4>`;
+        whoseTurn.innerHTML = `<h2>Main: 0% </h2><h1 id="tellTurn">${playersTurnsText().toUpperCase()}'S TURN<h1><h2>Pro: 0% </h2>`;
     }
-    if(enemyPoints/totalPoints >= 1/2 && wonSecondBoard === false && wonFirstBoard === true){
-        loseModal.classList.remove("closeModal")
-    }
+    // if(otherPoints/totalPoints >= 1/2 && wonSecondBoard === false && wonFirstBoard === true){
+    //     loseModal.classList.remove("closeModal")
+    // }
 }
 const checkWinThird = () =>{
     let playerPoints = 0;
-    let enemyPoints = 0;
+    let otherPoints = 0;
     let noPoints = 0;
     for(let i = 0; i < 15; i++){
         for( let j = 0; j < 10; j++){
@@ -631,26 +626,44 @@ const checkWinThird = () =>{
                 playerPoints +=1;
             }
             if(thePiece.classList.contains(players[1])){
-                enemyPoints +=1;
+                otherPoints +=1;
             }
             if(thePiece.classList.contains('none')){
                 noPoints +=1;
             }
         }
     }
-    const totalPoints = playerPoints + enemyPoints + noPoints;
-    const turnString = `<h4>Player: ${(Math.round(playerPoints/totalPoints) * 100)}% </h4><h1 id="tellTurn">${playersTurnsText().toUpperCase()}'S TURN<h1><h4>Enemy: ${(Math.round(enemyPoints/totalPoints) * 100)}% </h4>`;
+    const totalPoints = playerPoints + otherPoints + noPoints;
+    const turnString = `<h2>Main: ${(Math.round(playerPoints/totalPoints) * 100)}% </h2><h1 id="tellTurn">${playersTurnsText().toUpperCase()}'S TURN<h1><h2>Pro: ${(Math.round(otherPoints/totalPoints) * 100)}% </h2>`;
     whoseTurn.innerHTML = turnString
-    if(playerPoints/totalPoints >= 1/2 && wonThirdBoard === false && wonSecondBoard === true){
-        console.log("Player wins")
+    if((playerPoints/totalPoints >= 1/2 || otherPoints/totalPoints > 1/2)&& wonThirdBoard === false && wonSecondBoard === true){
         wonThirdBoard = true;
-        turn = 0;
+        if(playersTurns() === players[0]){
+            mainCharacterPoints += 1;
+            turns = 1;
+        } else {
+            turns = 0;
+            protagonistPoints += 1;
+        }
+        if(mainCharacterPoints < protagonistPoints){
+            thirdWinner.innerHTML = `The ${playersTurns()} Won! <br />
+                                     ${players[0]} won ${mainCharacterPoints} games! <br />
+                                     ${players[1]} won ${protagonistPoints} games!`;
+        }
+        if(protagonistPoints < mainCharacterPoints){
+            thirdWinner.innerHTML = `The ${playersTurns()} Won! <br />
+                                     ${players[0]} won ${mainCharacterPoints} games! <br />
+                                     ${players[1]} won ${protagonistPoints} games!`;
+        }
+        if(protagonistPoints === mainCharacterPoints){
+            thirdWinner.innerHTML = `IMPOSSIBLE! THERE CAN'T BE A TIE IN THIS GAME!`;
+        }
         lastWin.classList.remove("closeModal");
-        whoseTurn.innerHTML = `<h4>Player: 0% </h4><h1 id="tellTurn">${playersTurnsText().toUpperCase()}'S TURN<h1><h4>Enemy: 0% </h4>`;
+        whoseTurn.innerHTML = `<h2>Main: 0% </h2><h1 id="tellTurn">${playersTurnsText().toUpperCase()}'S TURN<h1><h2>Pro: 0% </h2>`;
     }
-    if(enemyPoints/totalPoints >= 1/2 && wonSecondBoard === false && wonFirstBoard === true){
-        loseModal.classList.remove("closeModal")
-    }
+    // if(otherPoints/totalPoints >= 1/2 && wonSecondBoard === false && wonFirstBoard === true){
+    //     loseModal.classList.remove("closeModal")
+    // }
 }
 const gameFunction = (currentColor) => {
     if(wonFirstBoard === false){
@@ -712,7 +725,6 @@ const chooseRed = () =>{
     redButtonFake[0].classList.remove("closeModal")
     redButtonFake[1].classList.remove("closeModal")
     removeColorAddHidden()
-    closeColorChoose();
 }
 const chooseYellow = () =>{
     gameFunction(theColorsAvailable[1]);
@@ -720,7 +732,6 @@ const chooseYellow = () =>{
     yellowButtonFake[0].classList.remove("closeModal")
     yellowButtonFake[1].classList.remove("closeModal")
     removeColorAddHidden()
-    closeColorChoose();
 }
 const chooseGreen = () =>{
     gameFunction(theColorsAvailable[2]);
@@ -728,7 +739,6 @@ const chooseGreen = () =>{
     greenButtonFake[0].classList.remove("closeModal")
     greenButtonFake[1].classList.remove("closeModal")
     removeColorAddHidden()
-    closeColorChoose();
 }
 const chooseBlue = () =>{
     gameFunction(theColorsAvailable[3]);
@@ -736,7 +746,6 @@ const chooseBlue = () =>{
     blueButtonFake[0].classList.remove("closeModal")
     blueButtonFake[1].classList.remove("closeModal")
     removeColorAddHidden()
-    closeColorChoose();
 }
 const chooseCyan = () =>{
     gameFunction(theColorsAvailable[4]);
@@ -744,7 +753,6 @@ const chooseCyan = () =>{
     cyanButtonFake[0].classList.remove("closeModal")
     cyanButtonFake[1].classList.remove("closeModal")
     removeColorAddHidden()
-    closeColorChoose();
 }
 const choosePurple = () =>{
     gameFunction(theColorsAvailable[5]);
@@ -752,7 +760,6 @@ const choosePurple = () =>{
     purpleButtonFake[0].classList.remove("closeModal")
     purpleButtonFake[1].classList.remove("closeModal")
     removeColorAddHidden()
-    closeColorChoose();
 }
 const chooseGrey = () =>{
     gameFunction(theColorsAvailable[6]);
@@ -760,7 +767,6 @@ const chooseGrey = () =>{
     greyButtonFake[0].classList.remove("closeModal")
     greyButtonFake[1].classList.remove("closeModal")
     removeColorAddHidden()
-    closeColorChoose();
 }
 ////////////////Event Listeners
 startButton.addEventListener("click", closeTheOpening)
