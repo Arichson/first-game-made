@@ -1,6 +1,8 @@
 # Game
 <p>Hexcalour is a game of based on colors. This game is a two player game where each player competes to take over half the board. The first player who succeeds wons on that board.</p> 
 
+[Hexacalour Game](https://arichson.github.io/first-game-made/)
+
 # Rules
 - Change your color
 - Take over the same color hexes next to you
