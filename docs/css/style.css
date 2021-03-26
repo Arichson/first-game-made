@@ -344,7 +344,17 @@ body{background-color:black;}
 #board1Col12 {left:84%;}
 #board1Col13 {left:91%;}
 #board1Col14 {left:98%;}
-@media screen and (max-width: 650px){
+@media screen and (max-width: 760px){
+    #playerOnePic{
+        bottom: 0;
+        left: 0;
+        transform: translate(-120%, -35%);
+    }
+    #playerTwoPic{
+        bottom: 0;
+        right: 0;
+        transform: translate(120%, -35%);
+    }
     .theHexagons{
         width: 30px;
         height: 25px;
