@@ -190,6 +190,32 @@ body{background-color:black;}
     z-index: 700;
     transform: translate(50%, -50%);
 }
+#playerOnePic{
+    background-image: url("../assets/Player\ 2.png");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-color: white;
+    position: fixed;
+    width: 68px;
+    height: 60px;
+    top: 30%;
+    left: 80px;
+    clip-path: polygon(30% 0%, 70% 0%, 100% 50%, 70% 100%, 30% 100%, 0% 50%, 30% 0%);
+}
+#playerTwoPic{
+    background-image: url("../assets/Player\ 1.png");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-color: white;
+    position: fixed;
+    width: 68px;
+    height: 60px;
+    top: 30%;
+    right: 80px;
+    clip-path: polygon(30% 0%, 70% 0%, 100% 50%, 70% 100%, 30% 100%, 0% 50%, 30% 0%);
+}
 .redButton {background-color: red;}
 .yellowButton {background-color: yellow;}
 .greenButton {background-color: green;}

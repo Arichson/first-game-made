@@ -34,6 +34,8 @@ const whoseTurn = document.querySelector("#whoseTurn");
 const firstWinner = document.querySelector("#firstWinner");
 const secondWinner = document.querySelector("#secondWinner");
 const thirdWinner = document.querySelector("#thirdWinner");
+const playerOnePic = document.querySelector("#playerOnePic")
+const playerTwoPic = document.querySelector("#playerTwoPic")
 ///////////Variables
 let wonFirstBoard = false;
 let wonSecondBoard = false;
@@ -103,10 +105,16 @@ const firstBoardMaker = () => {    ////////////makes the first board
                     return "none";
                 }
             }
-            const currentColor =  theColorsAvailable[randNum(theColorsAvailable.length)];
+            const currentColor = theColorsAvailable[randNum(theColorsAvailable.length)];
             const newDiv = `<div id="piece${j}${i}" class="${currentColor} theHexagons ${owner()}"></div>`;
             pieceColor += newDiv;
             if(i===0 && j === 9 || i === 9 && j === 0){ //// same place as the players,
+                if(i===0 && j === 9){
+                    playerOnePic.style.backgroundColor = currentColor;
+                }
+                if(i===9 && j === 0){
+                    playerTwoPic.style.backgroundColor = currentColor;
+                }
                 unChoosableColorOne.push(currentColor); ///////this will help lock certain colors from being used
                 const lostColor = document.querySelectorAll(`.${currentColor}ButtonFake`)
                 lostColor[0].classList.remove("closeModal")
@@ -152,9 +160,12 @@ const secondBoardMaker = () => {
             const newDiv = `<div id="piece${j}${i}" class="${colorChosen} theHexagons ${owner()}"></div>`;
             pieceColor += newDiv;
             if(i===0 && j === 0 || i === 9 && j === 9){
-                
-                
-                
+                if(i===0 && j === 0){
+                    playerOnePic.style.backgroundColor = colorChosen;
+                }
+                if(i===9 && j === 9){
+                    playerTwoPic.style.backgroundColor = colorChosen;
+                }
                 unChoosableColorOne.push(colorChosen);
                 const lostColor = document.querySelectorAll(`.${colorChosen}ButtonFake`)
                 lostColor[0].classList.remove("closeModal")
@@ -181,10 +192,10 @@ const thirdBoardMaker = () => {
         for(let j = 0; j<10; j++){
             const owner = () =>{
                 if(i===14 && j === 4){
-                    return players[0];
-                } else if (i === 0 && j === 4){
                     return players[1];
-                } else if (i > 2 && i < 4 && j>2 && j < 4){
+                } else if (i === 0 && j === 4){
+                    return players[0];
+                } else if ((i > 2 && i < 5 && j>2 && j < 7) || (i > 9 && i < 12 && j>2 && j < 7) || (i > 4 && i < 6 && j>2 && j < 4) || (i > 8 && i < 10 && j>2 && j < 4) || (i > 4 && i < 6 && j>6 && j < 8) || (i > 8 && i < 10 && j>6 && j < 8) || (i > 6 && i < 8 && j>1 && j < 3) || (i > 6 && i < 8 && j>7 && j < 9)){
                     return "void"
                 } else {
                     return "none";
@@ -200,6 +211,12 @@ const thirdBoardMaker = () => {
             const newDiv = `<div id="piece${j}${i}" class="${colorChosen} theThirdHexagons ${owner()}"></div>`;
             pieceColor += newDiv;
             if(i===14 && j === 4 || i === 0 && j === 4){
+                if(i===0 && j === 4){
+                    playerOnePic.style.backgroundColor = colorChosen;
+                }
+                if(i===14 && j === 4){
+                    playerTwoPic.style.backgroundColor = colorChosen;
+                }
                 unChoosableColorOne.push(colorChosen);
                 const lostColor = document.querySelectorAll(`.${colorChosen}ButtonFake`)
                 lostColor[0].classList.remove("closeModal")
@@ -634,9 +651,11 @@ const checkWinThird = () =>{
         }
     }
     const totalPoints = playerPoints + otherPoints + noPoints;
-    const turnString = `<h2>Main: ${(Math.round(playerPoints/totalPoints) * 100)}% </h2><h1 id="tellTurn">${playersTurnsText().toUpperCase()}'S TURN<h1><h2>Pro: ${(Math.round(otherPoints/totalPoints) * 100)}% </h2>`;
+    console.log(playerPoints, otherPoints, noPoints, totalPoints)
+    const turnString = `<h2>Main: ${Math.round((playerPoints/totalPoints) * 100)}% </h2><h1 id="tellTurn">${playersTurnsText().toUpperCase()}'S TURN<h1><h2>Pro: ${Math.round((otherPoints/totalPoints) * 100)}% </h2>`;
     whoseTurn.innerHTML = turnString
-    if((playerPoints/totalPoints >= 1/2 || otherPoints/totalPoints > 1/2)&& wonThirdBoard === false && wonSecondBoard === true){
+    console.log(turnString)
+    if((playerPoints/totalPoints >= 1/2 || otherPoints/totalPoints >= 1/2)&& wonThirdBoard === false && wonSecondBoard === true){
         wonThirdBoard = true;
         if(playersTurns() === players[0]){
             mainCharacterPoints += 1;
@@ -666,6 +685,12 @@ const checkWinThird = () =>{
     // }
 }
 const gameFunction = (currentColor) => {
+    if(playersTurns() === players[0]){
+        playerOnePic.style.backgroundColor = currentColor;
+    } 
+    if(playersTurns() === players[1]){
+        playerTwoPic.style.backgroundColor = currentColor;
+    }
     if(wonFirstBoard === false){
         if(playersTurns() === players[0]){
             goForward(currentColor);
