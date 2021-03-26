@@ -1,5 +1,6 @@
 # Game
 <p>Hexcalour is a game of based on colors. This game is a two player game where each player competes to take over half the board. The first player who succeeds wons on that board.</p> 
+
 # Rules
 - Change your color
 - Take over the same color hexes next to you
@@ -14,8 +15,9 @@
 <p> I didn't use anything too crazy. Mostly just used basic javascript. </p>
 
 # Screen Shots
-<p>![Getting Started](docs/assets/Screenshot1.png) <br />
+
+![Getting Started](docs/assets/Screenshot1.png) <br />
 ![Getting Started](docs/assets/Screenshot2.png)
-</p>
+
 
 
