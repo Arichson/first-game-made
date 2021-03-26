@@ -14,7 +14,8 @@
 <p> I didn't use anything too crazy. Mostly just used basic javascript. </p>
 
 # Screen Shots
-    ![Getting Started](docs/assets/Screenshot1.png)
-    ![Getting Started](docs/assets/Screenshot2.png)
+<p>![Getting Started](docs/assets/Screenshot1.png) <br />
+![Getting Started](docs/assets/Screenshot2.png)
+</p>
 
 
