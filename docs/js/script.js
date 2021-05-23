@@ -55,7 +55,7 @@ const playersTurns = () => { ///determines whos turn it is
         return players[1];
     }
 }
-const playersTurnsText = () => { ////////this is the text used for the html
+const playersTurnsText = () => { /////////this is the text used for the html
     const currentTurn = turns % 2;
     if( currentTurn === 1) {
         return players[0];
